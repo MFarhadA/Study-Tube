@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex justify-center items-center min-h-screen bg-[#48c774]">
+    
+    <!-- Background -->
+    <div class="fixed bottom-0 items-center w-[1041px] h-[425px]">
+        <svg width="1041" height="425" viewBox="0 0 1041 425" fill="#40BA6A" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1040.85 425V3.14693C820.114 -9.71717 708.017 13.3729 540.11 137.874V425H1040.85Z"/>
+            <path d="M501.591 425V137.874C333.685 13.3729 221.587 -9.71717 0.850708 3.14693V425H501.591Z"/>
+        </svg>
+    </div>
+
+    <!-- Logo Study Tube -->
+    <div class="absolute top-5 left-5 flex items-center space-x-4">
+        <svg width="60" height="37" viewBox="0 0 60 37" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V29C0 33.4183 3.58172 37 8 37H52C56.4183 37 60 33.4183 60 29V8C60 3.58172 56.4183 0 52 0H8ZM30 11.5818V30.0818C24.9284 26.911 22.0799 26.2166 17 26.5818V8.08175C22.7307 7.74756 25.6409 8.34741 30 11.5818ZM31 11.5818V30.0818C36.0716 26.911 38.9201 26.2166 44 26.5818V8.08175C38.2693 7.74756 35.3591 8.34741 31 11.5818Z"/>
+        </svg>
+        <h1 class="text-white text-2xl font-extrabold font-['Poppins']">
+            Study Tube
+        </h1>
+    </div>
+    
+    <!-- Text Masuk Sebagai -->
+    <div class="relative items-center py-[120px]">
+        <h1 class="select-none text-center text-white text-4xl font-extrabold font-['Poppins'] mb-10">Masuk sebagai</h1>
+        
+        <!-- Tombol Pilihan -->
+        <div class="flex flex-col sm:flex-row space-y-7 sm:space-y-0 sm:space-x-5 items-center">
+
+            <!-- Tombol Sekolah -->
+            <button onclick="location='sekolah/index.html'" class="w-[450px] h-[254px] sm:w-[212px] bg-white rounded-[30px] flex flex-col justify-center items-center shadow-lg space-x-4 transition-transform transform hover:scale-110">
+                <div class="flex flex-col justify-center items-center">
+                    <!-- Ikon Sekolah -->
+                    <svg width="142" height="129" viewBox="0 0 142 129" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-7">
+                        <path d="M30.6242 16.1777L71.0656 0.0486104L111.474 16.2595L106.695 28.1705L103.122 26.7359L103.109 39.0752L141.609 39.1142L141.518 128.947L77.3518 128.882L77.3973 83.9658L64.5639 83.9528L64.5185 128.869L0.351816 128.804L0.442804 38.9712L38.9428 39.0102L38.9553 26.6709L35.3798 28.0982L30.6242 16.1777ZM13.1981 115.984L38.8648 116.01L38.9298 51.8435L13.2631 51.8175L13.1981 115.984ZM103.096 51.9085L103.031 116.075L128.698 116.101L128.763 51.9345L103.096 51.9085ZM77.4749 32.6197L64.616 32.6067L64.6029 45.4657L77.4619 45.4787L77.4749 32.6197Z" fill="#48C774"/>
+                    </svg>
+                    <!-- Teks Sekolah -->
+                    <div class="text-center text-[#48c774] text-3xl font-extrabold font-['Poppins']">
+                        Sekolah
+                    </div>
+                </div>
+            </button>
+
+            <!-- Tombol Guru -->
+            <div>
+                <button onclick="location='guru/index.html'" class="w-[450px] h-[254px] sm:w-[212px] bg-white rounded-[30px] flex flex-col justify-center items-center shadow-lg space-x-4 transition-transform transform hover:scale-110">
+                    <div class="flex flex-col justify-center items-center">
+                        <!-- Ikon Guru -->
+                        <svg width="140" height="125" viewBox="0 0 140 125" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-7">
+                            <path d="M139.049 45.6522L70.0571 0.706499L0.9742 45.5124L69.9662 90.4523L116.664 60.1662L116.634 89.3795L128.301 89.3914L128.338 52.6006L139.049 45.6522Z" fill="#48C774"/>
+                            <path d="M29.1252 98.0409L29.1468 76.6618L69.9533 103.245L110.813 76.7445L110.792 98.1236C110.783 106.699 104.861 113.372 97.6296 117.582C90.2519 121.88 80.4436 124.343 69.9319 124.332C59.4202 124.322 49.6227 121.838 42.2479 117.526C35.0247 113.301 29.1165 106.616 29.1252 98.0409Z" fill="#48C774"/>
+                        </svg>
+                        <!-- Teks Guru -->
+                        <div class="text-center text-[#48c774] text-3xl font-extrabold font-['Poppins']">
+                            Guru
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Tombol Siswa -->
+            <button onclick="location='siswa/index.html'" class="w-[450px] h-[254px] sm:w-[212px] bg-white rounded-[30px] flex flex-col justify-center items-center shadow-lg space-x-4 transition-transform transform hover:scale-110">
+                <div class="flex flex-col justify-center items-center">
+                    <!-- Ikon Siswa -->
+                    <svg width="115" height="128" viewBox="0 0 115 128" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-7">
+                        <path d="M24.3561 33.5879C24.365 24.7474 27.8855 16.2725 34.1431 10.0276C40.4006 3.7827 48.8826 0.279398 57.7232 0.288352C66.5637 0.297307 75.0386 3.81779 81.2835 10.0753C87.5284 16.3329 91.0317 24.8149 91.0227 33.6554C91.0138 42.496 87.4933 50.9709 81.2357 57.2158C74.9782 63.4606 66.4962 66.9639 57.6556 66.955C48.8151 66.946 40.3402 63.4255 34.0953 57.168C27.8504 50.9105 24.3471 42.4284 24.3561 33.5879ZM0.941728 113.564C0.950682 104.724 4.47116 96.2488 10.7287 90.0039C16.9862 83.759 25.4683 80.2557 34.3088 80.2647L80.9754 80.3119C85.3528 80.3164 89.6865 81.183 93.729 82.8622C97.7715 84.5415 101.444 87.0005 104.536 90.0989C107.628 93.1973 110.08 96.8744 111.751 100.92C113.422 104.966 114.279 109.302 114.275 113.679L114.261 127.012L0.928223 126.898L0.941728 113.564Z" fill="#48C774"/>
+                    </svg>
+                        
+                    <!-- Teks Siswa -->
+                    <div class="text-center text-[#48c774] text-3xl font-extrabold font-['Poppins']">
+                        Siswa
+                    </div>
+                </div>
+            </button>
+        </div>
+        
+    </div>
+
+</body>
+</html>
