@@ -5,7 +5,7 @@
       "type": "chrome",
       "request": "launch",
       "name": "Launch Brave",
-      "url": "http://localhost/StudyTube/login/index.html",  // Ganti dengan URL aplikasi Anda
+      "url": "http://localhost/Study-Tube/login/index.html",  // Ganti dengan URL aplikasi Anda
       "webRoot": "${workspaceFolder}",
       "runtimeExecutable": "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",  // Ganti dengan path Brave di sistem Anda (contoh untuk macOS)
       "runtimeArgs": [

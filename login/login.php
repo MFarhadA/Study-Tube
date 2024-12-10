@@ -4,10 +4,6 @@ session_start();
 // Memasukkan koneksi database
 include('../koneksi.php');
 
-echo '<pre>';
-print_r($_SESSION);  // Ini akan menampilkan semua data dalam session
-echo '</pre>';
-
 // Menangani kesalahan error login
 $error_message = "";
 // Mengecek apakah form sudah disubmit
@@ -23,8 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("s", $email_2); // Bind email ke query
     $stmt->execute();
     $result = $stmt->get_result();
-
-    $_SESSION['email_2'] = $email_2;
 
     // Mengecek apakah user ditemukan dan memverifikasi password
     if ($result->num_rows > 0) {

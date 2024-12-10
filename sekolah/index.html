@@ -10,8 +10,8 @@
 </head>
 <body>
     <!-- Sidebar -->
-    <div id="sidebar">
-        <div class="fixed w-[250px] h-[70px] bg-[#40BA6A]"></div>
+    <div id="sidebar" class="fixed top-0 left-0 h-screen w-[250px] bg-[#40BA6A]">
+        <div class="absolute w-full h-[70px] bg-[#40BA6A]"></div>
         <div class="p-1">
         <div class="sidebar-content my-[20px]">
             <div class="flex flex-column space-y-2">
@@ -72,28 +72,64 @@
     <!-- Main Content Area -->
     <div id="mainContent" class="main-content p-3">
         
-        <div class="container flex space-x-5 ml-0">
+        <!-- Navbar -->
+        <div class="flex justify-between space-x-5">
             <!-- Sidebar Button -->
-            <button id="toggleSidebar" class="btn btn-primary rounded-lg border border-[#48c774] bg-white" >
+            <button id="toggleSidebar" class="btn btn-secondary col-rounded bg-white" >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
+            <h1 class="font-poppins font-extrabold text-xl my-auto">Dashboard Sekolah</h1>
             <!-- Logo Study Tube -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
                 <svg width="40" height="29" viewBox="0 0 60 37" fill="#48c774" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V29C0 33.4183 3.58172 37 8 37H52C56.4183 37 60 33.4183 60 29V8C60 3.58172 56.4183 0 52 0H8ZM30 11.5818V30.0818C24.9284 26.911 22.0799 26.2166 17 26.5818V8.08175C22.7307 7.74756 25.6409 8.34741 30 11.5818ZM31 11.5818V30.0818C36.0716 26.911 38.9201 26.2166 44 26.5818V8.08175C38.2693 7.74756 35.3591 8.34741 31 11.5818Z"/>
                 </svg>
-                <h1 class="text-[#48c774] text-xl font-extrabold font-['Poppins']">
+                <h1 class="text-[#48c774] select-none text-xl font-extrabold font-['Poppins']">
                     Study Tube
                 </h1>
             </div>
         </div>
         
-        <div class="container-fluid mt-4 space-y-2">
-            <h1 class="font-poppins">Sekolah</h1>
-            <p class="font-poppins">This is the main content area. The sidebar is collapsible!</p>
-            <p class="font-poppins">Selamat datang, <?php echo htmlspecialchars($email_2); ?>!</p>
+        <!-- Content -->
+        <div class="container mt-4">
+            <div class="row space-x-0 sm:space-x-2 space-y-2 sm:space-y-0">
+                <div class="col items-center">
+                    <div class="row space-x-0 sm:space-x-2 space-y-2">
+                        <h1 class="font-roboto mb-2">Analytics Sekolah</h1>
+                        <div class="col col-rounded items-center p-3">
+                            <p class="font-roboto">Followers</p>
+                            <h2 class="text-4xl font-bold">60</h2>
+                        </div>
+                        <div class="col col-rounded items-center p-3">
+                            <p class="font-roboto">Followers Terbaru</p>
+                            <h2 class="text-4xl font-bold">60</h2>
+                        </div>
+                        <div class="col col-rounded items-center p-3">
+                            <p class="font-roboto">Rating</p>
+                            <h2 class="text-4xl font-bold">4.5</h2>
+                        </div>
+                        <div class="col col-rounded items-center p-3">
+                            <p class="font-roboto">Rating Terbaru</p>
+                            <h2 class="text-4xl font-bold">60</h2>
+                        </div>  
+                    </div>
+                </div>
+                <div class="col col-md-1">
+                    <svg class="h-auto" viewBox="0 0 4 574" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 1.99999C0 0.895424 0.895431 0 2 0C3.10457 0 4 0.895431 4 2V572C4 573.105 3.10457 574 2 574C0.895431 574 0 573.105 0 572V1.99999Z" fill="#48C774"/>
+                    </svg>
+                </div>
+                <div class="col col-md-4 items-center">
+                    <h1 class="font-roboto mb-2">Analytics Guru</h1>
+                    <div class="col col-rounded items-center p-3">
+                        <p class="font-roboto text-sm">Followers</p>
+                        <h2 class="text-4xl font-bold">60</h2>
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </div>
 

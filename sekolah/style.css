@@ -1,16 +1,25 @@
     /* Custom styling to ensure sidebar takes full height */
         input::placeholder {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 18px;
-            color: #888;
+          font-family: 'Poppins', sans-serif;
+          font-weight: 600;
+          font-size: 18px;
+          color: #888;
         }
         .font-poppins {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+          font-family: 'Poppins', sans-serif;
+          font-weight: 600;
         }
         .scale-svg {
-        transform: scale(1.2);
+          transform: scale(1.2);
+        }
+        .col-rounded {
+          border-radius: 0.5rem;
+          border-width: 1px;
+          border-color: #888;
+        }
+        .font-roboto {
+          font-family: 'Roboto', sans-serif;
+          font-weight: 600;
         }
     
     #sidebar {
