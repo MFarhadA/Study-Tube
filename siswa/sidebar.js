@@ -1,8 +1,8 @@
 const sidebar = document.getElementById('sidebar');
 const sidebarHTML = `
-  <div class="absolute w-full h-[70px] bg-[#40BA6A] bg-fixed">
-    <div class="p-1">
-        <div class="sidebar-content my-[20px]">
+    <div class="absolute w-full h-[70px] bg-[#40BA6A] bg-fixed"></div>
+    <div class="flex flex-col justify-between p-1 h-screen">
+        <div class="flex-none sidebar-content mt-[20px]">
             <div class="flex flex-column space-y-2">
                 <!-- Foto Profil -->
                 <div class="overflow-hidden w-[60px] h-[60px] rounded-full bg-white items-center z-10">
@@ -18,8 +18,8 @@ const sidebarHTML = `
             </div>
         </div>
         
-        <div class="fixed sidebar-content items-center mx-1">
-            <ul class="nav flex-column space-y-2">
+        <div class="flex overflow-y-auto overflow-hidden sidebar-content justify-center mx-1">
+            <ul class="nav flex-wrap space-y-2 mb-5">
                 <button onclick="location='/siswa/index.html'" class="px-4 py-2 w-[200px] nav-item flex space-x-3 bg-[#40BA6A] rounded-[10px] transition-transform transform hover:scale-110">
                     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 17L17 2L32 17M5.75 14.1875V30.125C5.75 30.6223 5.94754 31.0992 6.29918 31.4508C6.65081 31.8025 7.12772 32 7.625 32H13.25V26.375C13.25 25.8777 13.4475 25.4008 13.7992 25.0492C14.1508 24.6975 14.6277 24.5 15.125 24.5H18.875C19.3723 24.5 19.8492 24.6975 20.2008 25.0492C20.5525 25.4008 20.75 25.8777 20.75 26.375V32H26.375C26.8723 32 27.3492 31.8025 27.7008 31.4508C28.0525 31.0992 28.25 30.6223 28.25 30.125V14.1875" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,7 +47,7 @@ const sidebarHTML = `
             </ul>
         </div>
 
-        <div class="fixed sidebar-content bottom-0 mx-1">
+        <div class="flex-none sidebar-content bottom-0 mx-1 mt-2">
             <button onclick="location='/login/index.html'" class="px-4 py-2 w-[200px] nav-item flex space-x-3 bg-[#40BA6A] rounded-[10px] transition-transform transform hover:scale-110">
                 <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M29 23.3344V15.5C29 11.9196 27.5777 8.4858 25.0459 5.95406C22.5142 3.42232 19.0804 2 15.5 2C11.9196 2 8.4858 3.42232 5.95406 5.95406C3.42232 8.4858 2 11.9196 2 15.5V23.3344M2 17.4279H7.83784C8.41845 17.4279 8.97528 17.6586 9.38583 18.0691C9.79638 18.4797 10.027 19.0365 10.027 19.6171V26.0811C10.027 26.8552 9.7195 27.5977 9.1721 28.1451C8.62469 28.6925 7.88225 29 7.10811 29H4.91892C4.14477 29 3.40233 28.6925 2.85493 28.1451C2.30753 27.5977 2 26.8552 2 26.0811V17.4279ZM20.973 19.6171C20.973 19.0365 21.2036 18.4797 21.6142 18.0691C22.0247 17.6586 22.5816 17.4279 23.1622 17.4279H29V26.0811C29 26.8552 28.6925 27.5977 28.1451 28.1451C27.5977 28.6925 26.8552 29 26.0811 29H23.8919C23.1177 29 22.3753 28.6925 21.8279 28.1451C21.2805 27.5977 20.973 26.8552 20.973 26.0811V19.6171Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -63,7 +63,7 @@ const sidebarHTML = `
   `;
   sidebar.innerHTML += sidebarHTML;
 
-document.getElementById('toggleSidebar').addEventListener('click', function() {
-document.getElementById('sidebar').classList.toggle('collapsed-sidebar');
-document.getElementById('mainContent').classList.toggle('collapsed-content');
-});
+    document.getElementById('toggleSidebar').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('collapsed-sidebar');
+    document.getElementById('mainContent').classList.toggle('collapsed-content');
+    });

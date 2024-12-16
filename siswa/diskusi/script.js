@@ -22,6 +22,10 @@ const req_diskusi = [
     { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 1 }
 ];
 
+const chat_diskusi = {
+    fotoProfil: "/assets/foto_profil.jpg", nama: "Muhammad Farhad Ajilla", sekolah: 0
+};
+
 // Menggunakan forEach untuk iterasi array
 diskusi.forEach(item => diskusiHTML(item.fotoProfil, item.nama, item.pesan));
 req_diskusi.forEach(item => req_diskusiHTML(item.fotoProfil, item.nama, item.status));
@@ -82,3 +86,4 @@ function req_diskusiHTML(fotoProfil, nama, status) {
     // Menambahkan card ke dalam container
     req_diskusi.innerHTML += card;
 }
+
