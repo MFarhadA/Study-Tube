@@ -1,6 +1,96 @@
-const container = document.getElementById('containerProfile');
 
+// URL file PHP
+const guruMengikuti = '/Study-Tube/siswa/dataMengikuti.php';
+const videoData = '/Study-Tube/siswa/dataVideo.php';
+
+// Array users (akan diisi dari database)
+let guru = [];
+let video = [];
+
+// Fetch data dari file PHP
+fetch(guruMengikuti)
+    .then(response => response.json())
+    .then(data => {
+        // Assign data dari database ke array users
+        guru = data;
+
+        // Tampilkan di console untuk memastikan data
+        console.log("Guru dari Database:", guru);
+
+        // Contoh manipulasi DOM menggunakan data users
+        guru.forEach(user => {
+            const card = `
+                <div onclick="location.href='/Study-Tube/siswa/profil/index.php?teacherID=${user.teacherID}'" class="flex flex-col col-rounded-shadow p-3 w-[120px] h-[180px] space-y-2 cursor-pointer">
+                  <div class="mx-auto overflow-hidden w-[75px] h-[75px] rounded-full bg-white mb-1">
+                    <div class="mx-auto">
+                      <img src="${user.img}">
+                    </div>
+                  </div>
+                  <h1 class="font-poppins text-center text-black text-ellipsis line-clamp-3">
+                      ${user.name}
+                  </h1>
+                </div>
+            `;
+            const userList = document.getElementById('containerProfile');
+            userList.innerHTML += card;
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+fetch(videoData)
+    .then(response => response.json())
+    .then(data => {
+        // Assign data dari database ke array video
+        video = data;
+
+        // Tampilkan di console untuk memastikan data
+        console.log("Video dari Database:", video);
+
+        // Manipulasi DOM menggunakan data video
+        const userList = document.getElementById('containerVideo');
+        if (!userList) {
+            console.error('Element with id "containerVideo" not found.');
+            return;
+        }
+
+        video.forEach(videoItem => {
+            const { video_id, title, thumbnail, video, views, teacher_name, teacher_profile_photo } = videoItem;
+
+            const card = `
+                <div onclick="location.href='/Study-Tube/siswa/tonton/index.php?video=${encodeURIComponent(video)}&videoID=${video_id}'" class="w-[265px] h-[255px] col-rounded-shadow cursor-pointer p-2">
+                    <div class="overflow-hidden w-[250px] h-[140px] rounded-lg bg-white">
+                        <div class="mx-auto item thumbnail">
+                            <img src="${thumbnail}" alt="${title}" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <h1 class="font-roboto text-black text-ellipsis overflow-hidden line-clamp-2 mt-2">${title}</h1>
+                    <div class="row mt-2">
+                        <div class="flex space-x-3">
+                            <div class="mx-auto overflow-hidden w-[40px] h-[40px] rounded-full bg-white">
+                                <div class="mx-auto">
+                                    <img src="${teacher_profile_photo}" alt="${teacher_name}" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h1 class="font-roboto text-gray-400 text-sm truncate overflow-hidden">${teacher_name}</h1>
+                                <h1 class="font-roboto text-gray-400 text-sm truncate overflow-hidden">${views} views</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            userList.innerHTML += card;
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+/*
 // Data array yang akan digunakan
+const container = document.getElementById('containerProfile');
 const users = [
   { name: "Muhammad Farhad Ajilla", img: "../assets/foto_profil.jpg", link: "register/index.html" },
   { name: "Muhammad Farhad Ajilla", img: "../assets/foto_profil.jpg", link: "register/index.html" },
@@ -11,11 +101,10 @@ const users = [
   { name: "Muhammad Farhad Ajilla", img: "../assets/foto_profil.jpg", link: "register/index.html" },
   { name: "Muhammad Farhad Ajilla", img: "../assets/foto_profil.jpg", link: "register/index.html" }
 ];
-
 // Perulangan untuk menambahkan elemen
 users.forEach(user => {
   const card = `
-    <div onclick="location='${user.link}'" class="flex-shrink-0 scroll-ml-3 snap-start rounded-lg ring-2 ring-gray-200 overflow-hidden p-3 w-[120px] h-[180px] space-y-2 cursor-pointer">
+    <div onclick="location='${user.link}'" class="flex-shrink-0 scroll-ml-3 snap-start col-rounded-shadow overflow-hidden p-3 w-[120px] h-[180px] space-y-2 cursor-pointer">
       <div class="mx-auto overflow-hidden w-[75px] h-[75px] rounded-full bg-white">
         <div class="mx-auto">
           <img src="${user.img}" alt="${user.name}">
@@ -26,8 +115,9 @@ users.forEach(user => {
   `;
   container.innerHTML += card;
 });
+*/
 
-
+/*
 const videoData = [
     {
       link: '/assets/video.mp4',
@@ -88,7 +178,7 @@ function createCard(data) {
   
     // Membuat elemen HTML
     const cardHTML = `
-      <div onclick="playVideo('${link}')" class="w-[265px] h-[255px] rounded-lg ring-2 ring-gray-200 cursor-pointer p-2">
+      <div onclick="playVideo('${link}')" class="w-[265px] h-[255px] col-rounded-shadow cursor-pointer p-2">
         <div class="overflow-hidden w-[250px] h-[140px] rounded-lg bg-white">
           <div class="mx-auto item">
             <img src="${videoThumbnail}" alt="${title}">
@@ -124,37 +214,6 @@ function createCard(data) {
     const container = document.getElementById('containerVideo'); // Pastikan ada elemen dengan ID ini di HTML
     container.innerHTML += cardHTML;
   }
+*/
 
-  function playVideo(videoLink) {
-    // Mengubah sumber video dan menampilkan video player
-    const videoPlayer = document.getElementById('videoPlayer');
-    const videoSource = document.getElementById('videoSource');
-    const videoPopup = document.getElementById('videoPopup');
-    const thumbnail = document.querySelector('.thumbnail');
-    
-    // Menambahkan link video pada sumber
-    videoSource.src = videoLink;
-    
-    // Memulai video
-    videoPlayer.load();
-    videoPlayer.play();
-    
-    // Menampilkan video popup
-    videoPopup.style.display = 'flex';
-    
-    // Menghentikan thumbnail dari tampilan
-    thumbnail.style.display = 'none';
-  }
 
-  function closeVideo() {
-    // Menutup video dan kembali menampilkan thumbnail
-    const videoPopup = document.getElementById('videoPopup');
-    const thumbnail = document.querySelector('.thumbnail');
-    const videoPlayer = document.getElementById('videoPlayer');
-    
-    // Menyembunyikan popup dan menghentikan video
-    videoPopup.style.display = 'none';
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0; // Mengembalikan video ke awal
-    thumbnail.style.display = 'block'; // Menampilkan thumbnail kembali
-  }

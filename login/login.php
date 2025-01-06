@@ -2,7 +2,7 @@
 
 session_start();
 // Memasukkan koneksi database
-include('../koneksi.php');
+include('/koneksi.php');
 
 // Menangani kesalahan error login
 $error_message = "";

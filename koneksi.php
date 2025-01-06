@@ -1,5 +1,11 @@
 <?php
 
+// Start session
+session_start();
+
+$rootPath = $_SERVER['DOCUMENT_ROOT'];
+
+// Enable error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 

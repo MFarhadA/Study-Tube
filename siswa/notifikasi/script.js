@@ -1,13 +1,13 @@
 const notifikasi = [
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" }
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", konteks: "menyutujui diskusi dengan anda" }
 ];
 
 // Menggunakan forEach untuk iterasi array

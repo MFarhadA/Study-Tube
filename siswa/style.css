@@ -17,6 +17,11 @@
     border-width: 1px;
     border-color: #888;
   }
+  .col-rounded-shadow {
+    border-radius: 15px;   /* Membuat sudut melengkung */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan */
+  }
+
   .font-roboto {
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
@@ -27,7 +32,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 10;
     transition: transform 0.3s ease-in-out;
     width: 250px;
     background-color: #48c774;

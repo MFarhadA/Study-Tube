@@ -1,29 +1,29 @@
 const diskusi = [
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Muhammad Farhad Ajilla", pesan: "menyutujui diskusi dengan anda menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" }
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Muhammad Farhad Ajilla", pesan: "APALAH" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", pesan: "menyutujui diskusi dengan anda" }
 ];
 
 const req_diskusi = [
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Muhammad Farhad Ajilla", status: 0 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 1 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 1 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
-    { fotoProfil: "/assets/foto_profil.jpg", nama: "Ajil", status: 1 }
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Muhammad Farhad Ajilla", status: 0 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 1 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 1 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 0 },
+    { fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Ajil", status: 1 }
 ];
 
 const chat_diskusi = {
-    fotoProfil: "/assets/foto_profil.jpg", nama: "Muhammad Farhad Ajilla", sekolah: 0
+    fotoProfil: "/Study-Tube/assets/foto_profil.jpg", nama: "Muhammad Farhad Ajilla", sekolah: 0
 };
 
 // Menggunakan forEach untuk iterasi array
@@ -87,3 +87,7 @@ function req_diskusiHTML(fotoProfil, nama, status) {
     req_diskusi.innerHTML += card;
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const discussion = document.getElementById("message");
+    discussion.scrollTop = discussion.scrollHeight;
+});
