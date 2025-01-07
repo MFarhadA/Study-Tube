@@ -66,5 +66,3 @@ function closeModal() {
             </div>
     </li>
 */
-
-    
