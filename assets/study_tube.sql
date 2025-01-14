@@ -15,181 +15,237 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for apotek
-CREATE DATABASE IF NOT EXISTS `apotek` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `apotek`;
+-- Dumping database structure for study_tube
+DROP DATABASE IF EXISTS `study_tube`;
+CREATE DATABASE IF NOT EXISTS `study_tube` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `study_tube`;
 
--- Dumping structure for table apotek.detail_obat
-CREATE TABLE IF NOT EXISTS `detail_obat` (
-  `Id_det_ob` int NOT NULL,
-  `NoResep` int DEFAULT NULL,
-  `Subtotal` int DEFAULT NULL,
-  `Jumlah` int DEFAULT NULL,
-  `KodeObat` int DEFAULT NULL,
-  PRIMARY KEY (`Id_det_ob`),
-  KEY `NoResep` (`NoResep`),
-  KEY `KodeObat` (`KodeObat`),
-  CONSTRAINT `detail_obat_ibfk_1` FOREIGN KEY (`NoResep`) REFERENCES `resep` (`NoResep`),
-  CONSTRAINT `detail_obat_ibfk_2` FOREIGN KEY (`KodeObat`) REFERENCES `obat` (`KodeObat`)
+-- Dumping structure for table study_tube.diskusi
+DROP TABLE IF EXISTS `diskusi`;
+CREATE TABLE IF NOT EXISTS `diskusi` (
+  `discussionID` int NOT NULL AUTO_INCREMENT,
+  `studentID` int NOT NULL,
+  `teacherID` int NOT NULL,
+  `discussion_date` time NOT NULL,
+  `file` longblob NOT NULL,
+  `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`discussionID`),
+  KEY `studentID` (`studentID`,`teacherID`),
+  KEY `teacherID` (`teacherID`),
+  CONSTRAINT `diskusi_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `diskusi_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `siswa` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.detail_obat: ~0 rows (approximately)
-DELETE FROM `detail_obat`;
+-- Dumping data for table study_tube.diskusi: ~0 rows (approximately)
+DELETE FROM `diskusi`;
 
--- Dumping structure for table apotek.detail_retur
-CREATE TABLE IF NOT EXISTS `detail_retur` (
-  `Id_retur` int NOT NULL,
-  `Id_det_ob` int NOT NULL,
-  PRIMARY KEY (`Id_retur`,`Id_det_ob`),
-  KEY `Id_det_ob` (`Id_det_ob`),
-  CONSTRAINT `detail_retur_ibfk_1` FOREIGN KEY (`Id_retur`) REFERENCES `retur` (`Id_retur`),
-  CONSTRAINT `detail_retur_ibfk_2` FOREIGN KEY (`Id_det_ob`) REFERENCES `detail_obat` (`Id_det_ob`)
+-- Dumping structure for table study_tube.guru
+DROP TABLE IF EXISTS `guru`;
+CREATE TABLE IF NOT EXISTS `guru` (
+  `teacherID` int NOT NULL AUTO_INCREMENT,
+  `schoolID` int NOT NULL,
+  `userID` int NOT NULL,
+  `followers` int NOT NULL,
+  `balance` int NOT NULL,
+  PRIMARY KEY (`teacherID`),
+  KEY `schoolID` (`schoolID`,`userID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `guru_ibfk_1` FOREIGN KEY (`schoolID`) REFERENCES `sekolah` (`schoolID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `guru_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table study_tube.guru: ~5 rows (approximately)
+DELETE FROM `guru`;
+INSERT INTO `guru` (`teacherID`, `schoolID`, `userID`, `followers`, `balance`) VALUES
+	(1, 1, 2, 160, 576),
+	(2, 1, 5, 303, 684),
+	(3, 1, 6, 415, 922),
+	(4, 1, 7, 265, 459),
+	(5, 1, 8, 402, 533);
+
+-- Dumping structure for table study_tube.ikuti
+DROP TABLE IF EXISTS `ikuti`;
+CREATE TABLE IF NOT EXISTS `ikuti` (
+  `studentID` int NOT NULL,
+  `teacherID` int NOT NULL,
+  KEY `FK_ikuti_guru` (`teacherID`),
+  KEY `FK_ikuti_siswa` (`studentID`),
+  CONSTRAINT `FK_ikuti_guru` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ikuti_siswa` FOREIGN KEY (`studentID`) REFERENCES `siswa` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table study_tube.ikuti: ~3 rows (approximately)
+DELETE FROM `ikuti`;
+INSERT INTO `ikuti` (`studentID`, `teacherID`) VALUES
+	(1, 3),
+	(1, 1),
+	(1, 2),
+	(1, 4),
+	(2, 1),
+	(3, 1),
+	(4, 1);
+
+-- Dumping structure for table study_tube.koin
+DROP TABLE IF EXISTS `koin`;
+CREATE TABLE IF NOT EXISTS `koin` (
+  `coinID` int NOT NULL AUTO_INCREMENT,
+  `userID` int NOT NULL,
+  `amount` int NOT NULL,
+  `transaction_type` int NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`coinID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `koin_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.detail_retur: ~0 rows (approximately)
-DELETE FROM `detail_retur`;
+-- Dumping data for table study_tube.koin: ~0 rows (approximately)
+DELETE FROM `koin`;
 
--- Dumping structure for table apotek.kategori_obat
-CREATE TABLE IF NOT EXISTS `kategori_obat` (
-  `Id_kategori` int NOT NULL,
-  `Nama` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Kategori` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Keterangan` text COLLATE utf8mb4_general_ci,
-  PRIMARY KEY (`Id_kategori`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Dumping structure for table study_tube.modul
+DROP TABLE IF EXISTS `modul`;
+CREATE TABLE IF NOT EXISTS `modul` (
+  `moduleID` int NOT NULL AUTO_INCREMENT,
+  `teacherID` int NOT NULL,
+  `videoID` int NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `download` int NOT NULL,
+  `modul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`moduleID`),
+  KEY `teacherID` (`teacherID`),
+  KEY `FK_modul_video` (`videoID`),
+  CONSTRAINT `FK_modul_guru` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`),
+  CONSTRAINT `FK_modul_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.kategori_obat: ~0 rows (approximately)
-DELETE FROM `kategori_obat`;
+-- Dumping data for table study_tube.modul: ~2 rows (approximately)
+DELETE FROM `modul`;
+INSERT INTO `modul` (`moduleID`, `teacherID`, `videoID`, `title`, `download`, `modul`) VALUES
+	(1, 1, 1, 'How to Create a Website', 93, '/Study-Tube/assets/modul_pdf.pdf'),
+	(2, 1, 1, 'Advanced PHP Techniques', 89, '/Study-Tube/assets/modul_dokumen.docx');
 
--- Dumping structure for table apotek.notelppasien
-CREATE TABLE IF NOT EXISTS `notelppasien` (
-  `NoPasien` int NOT NULL,
-  `NoTelp` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`NoPasien`),
-  CONSTRAINT `notelppasien_ibfk_1` FOREIGN KEY (`NoPasien`) REFERENCES `pasien` (`NoPasien`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Dumping structure for table study_tube.rating
+DROP TABLE IF EXISTS `rating`;
+CREATE TABLE IF NOT EXISTS `rating` (
+  `ratingID` int NOT NULL AUTO_INCREMENT,
+  `studentID` int NOT NULL,
+  `teacherID` int NOT NULL,
+  `rating_score` tinyint NOT NULL,
+  PRIMARY KEY (`ratingID`),
+  KEY `studentID` (`studentID`,`teacherID`),
+  KEY `rating_ibfk_1` (`teacherID`),
+  CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `siswa` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.notelppasien: ~0 rows (approximately)
-DELETE FROM `notelppasien`;
+-- Dumping data for table study_tube.rating: ~0 rows (approximately)
+DELETE FROM `rating`;
+INSERT INTO `rating` (`ratingID`, `studentID`, `teacherID`, `rating_score`) VALUES
+	(1, 1, 1, 1),
+	(2, 2, 1, 5),
+	(3, 3, 1, 3),
+	(4, 4, 1, 2);
 
--- Dumping structure for table apotek.notelppegawai
-CREATE TABLE IF NOT EXISTS `notelppegawai` (
-  `Id_pegawai` int NOT NULL,
-  `No_telp` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`Id_pegawai`),
-  CONSTRAINT `notelppegawai_ibfk_1` FOREIGN KEY (`Id_pegawai`) REFERENCES `pegawai` (`Id_pegawai`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Dumping structure for table study_tube.sekolah
+DROP TABLE IF EXISTS `sekolah`;
+CREATE TABLE IF NOT EXISTS `sekolah` (
+  `schoolID` int NOT NULL AUTO_INCREMENT,
+  `userID` int NOT NULL,
+  `school_address` text COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`schoolID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `sekolah_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.notelppegawai: ~0 rows (approximately)
-DELETE FROM `notelppegawai`;
+-- Dumping data for table study_tube.sekolah: ~0 rows (approximately)
+DELETE FROM `sekolah`;
+INSERT INTO `sekolah` (`schoolID`, `userID`, `school_address`) VALUES
+	(1, 3, 'Jl. Logam no. 1');
 
--- Dumping structure for table apotek.obat
-CREATE TABLE IF NOT EXISTS `obat` (
-  `KodeObat` int NOT NULL,
-  `Id_kategori` int DEFAULT NULL,
-  `MerkObat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Hargasatuan` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Dosis` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Jumlah` int DEFAULT NULL,
-  PRIMARY KEY (`KodeObat`),
-  KEY `Id_kategori` (`Id_kategori`),
-  CONSTRAINT `obat_ibfk_1` FOREIGN KEY (`Id_kategori`) REFERENCES `kategori_obat` (`Id_kategori`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Dumping structure for table study_tube.siswa
+DROP TABLE IF EXISTS `siswa`;
+CREATE TABLE IF NOT EXISTS `siswa` (
+  `studentID` int NOT NULL AUTO_INCREMENT,
+  `schoolID` int NOT NULL,
+  `userID` int NOT NULL,
+  `balance` int NOT NULL,
+  PRIMARY KEY (`studentID`),
+  KEY `schoolID` (`schoolID`,`userID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`schoolID`) REFERENCES `sekolah` (`schoolID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.obat: ~0 rows (approximately)
-DELETE FROM `obat`;
+-- Dumping data for table study_tube.siswa: ~0 rows (approximately)
+DELETE FROM `siswa`;
+INSERT INTO `siswa` (`studentID`, `schoolID`, `userID`, `balance`) VALUES
+	(1, 1, 1, 70),
+	(2, 1, 9, 347),
+	(3, 1, 10, 231),
+	(4, 1, 11, 816),
+	(5, 1, 12, 883),
+	(6, 1, 13, 268);
 
--- Dumping structure for table apotek.pasien
-CREATE TABLE IF NOT EXISTS `pasien` (
-  `NoPasien` int NOT NULL,
-  `Nama` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Alamat` text COLLATE utf8mb4_general_ci,
-  `Pekerjaan` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `NoKtp` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`NoPasien`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Dumping structure for table study_tube.user
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `userID` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `profile_photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `role` int NOT NULL,
+  PRIMARY KEY (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.pasien: ~0 rows (approximately)
-DELETE FROM `pasien`;
+-- Dumping data for table study_tube.user: ~12 rows (approximately)
+DELETE FROM `user`;
+INSERT INTO `user` (`userID`, `email`, `password`, `name`, `profile_photo`, `role`) VALUES
+	(1, 'siswa@gmail.com', '2020', 'MFarhadA', '/Study-Tube/db/profile_photo/677a63b0ab1a7.jpg', 1),
+	(2, 'guru', '2020', 'Guru Ajil', '/Study-Tube/db/profile_photo/677bcefc7e164.jpg', 2),
+	(3, 'sekolah', '2020', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 3),
+	(5, 'farhad.ajilla@gmail.com', '2020', 'Muhammad Farhad Ajilla', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(6, 'sarah.annisa@yahoo.com', '2020', 'Sarah Annisa', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(7, 'john.doe@example.com', '2020', 'John Doe', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(8, 'jane.smith@outlook.com', '2020', 'Jane Smith Stone Johnson', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(9, 'murid1@example.com', '2020', 'Murid Satu', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(10, 'murid2@example.com', '2020', 'Murid Dua', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(11, 'murid3@example.com', '2020', 'Murid Tiga', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(12, 'murid4@example.com', '2020', 'Murid Empat', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(13, 'murid5@example.com', '2020', 'Murid Lima', '/Study-Tube/assets/foto_profil.jpg', 1);
 
--- Dumping structure for table apotek.pasien_bpjs
-CREATE TABLE IF NOT EXISTS `pasien_bpjs` (
-  `NoPasien` int NOT NULL,
-  `NIK_BPJS` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `JenisBPJS` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`NoPasien`),
-  CONSTRAINT `pasien_bpjs_ibfk_1` FOREIGN KEY (`NoPasien`) REFERENCES `pasien` (`NoPasien`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Dumping structure for table study_tube.video
+DROP TABLE IF EXISTS `video`;
+CREATE TABLE IF NOT EXISTS `video` (
+  `videoID` int NOT NULL AUTO_INCREMENT,
+  `teacherID` int NOT NULL,
+  `video` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `thumbnail` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `views` int NOT NULL,
+  `upload_date` datetime NOT NULL,
+  PRIMARY KEY (`videoID`),
+  KEY `teacherID` (`teacherID`),
+  CONSTRAINT `video_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table apotek.pasien_bpjs: ~0 rows (approximately)
-DELETE FROM `pasien_bpjs`;
-
--- Dumping structure for table apotek.pasien_non_bpjs
-CREATE TABLE IF NOT EXISTS `pasien_non_bpjs` (
-  `NoPasien` int NOT NULL,
-  `Faskes` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`NoPasien`),
-  CONSTRAINT `pasien_non_bpjs_ibfk_1` FOREIGN KEY (`NoPasien`) REFERENCES `pasien` (`NoPasien`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table apotek.pasien_non_bpjs: ~0 rows (approximately)
-DELETE FROM `pasien_non_bpjs`;
-
--- Dumping structure for table apotek.pegawai
-CREATE TABLE IF NOT EXISTS `pegawai` (
-  `Id_pegawai` int NOT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `alamat` text COLLATE utf8mb4_general_ci,
-  `jabatan` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `No_ktp` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`Id_pegawai`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table apotek.pegawai: ~0 rows (approximately)
-DELETE FROM `pegawai`;
-
--- Dumping structure for table apotek.pembayaran
-CREATE TABLE IF NOT EXISTS `pembayaran` (
-  `Id_bayar` int NOT NULL,
-  `Id_pegawai` int DEFAULT NULL,
-  `Tgl_bayar` date DEFAULT NULL,
-  `jumlah_bayar` int DEFAULT NULL,
-  `sisa_piutang` int DEFAULT NULL,
-  PRIMARY KEY (`Id_bayar`),
-  KEY `Id_pegawai` (`Id_pegawai`),
-  CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`Id_pegawai`) REFERENCES `pegawai` (`Id_pegawai`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table apotek.pembayaran: ~0 rows (approximately)
-DELETE FROM `pembayaran`;
-
--- Dumping structure for table apotek.resep
-CREATE TABLE IF NOT EXISTS `resep` (
-  `NoResep` int NOT NULL,
-  `NoPasien` int DEFAULT NULL,
-  `TglResep` date DEFAULT NULL,
-  `Asaldokter` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Total` int DEFAULT NULL,
-  `Id_bayar` int DEFAULT NULL,
-  PRIMARY KEY (`NoResep`),
-  KEY `NoPasien` (`NoPasien`),
-  KEY `Id_bayar` (`Id_bayar`),
-  CONSTRAINT `resep_ibfk_1` FOREIGN KEY (`NoPasien`) REFERENCES `pasien` (`NoPasien`),
-  CONSTRAINT `resep_ibfk_2` FOREIGN KEY (`Id_bayar`) REFERENCES `pembayaran` (`Id_bayar`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table apotek.resep: ~0 rows (approximately)
-DELETE FROM `resep`;
-
--- Dumping structure for table apotek.retur
-CREATE TABLE IF NOT EXISTS `retur` (
-  `Id_retur` int NOT NULL,
-  `Tglretur` date DEFAULT NULL,
-  PRIMARY KEY (`Id_retur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table apotek.retur: ~0 rows (approximately)
-DELETE FROM `retur`;
+-- Dumping data for table study_tube.video: ~15 rows (approximately)
+DELETE FROM `video`;
+INSERT INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `views`, `upload_date`) VALUES
+	(1, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'How to Learn Programming', 359, '2024-09-22 20:14:00'),
+	(2, 1, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', '10 Tips for Effective Studying', 310, '2024-12-25 20:14:00'),
+	(3, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Python in 30 Days', 762, '2024-12-17 20:14:00'),
+	(4, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Understanding Machine Learning', 786, '2024-12-28 20:14:00'),
+	(5, 2, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Data Science for Beginners', 178, '2024-11-30 20:14:00'),
+	(6, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Exploring Artificial Intelligence', 412, '2024-10-28 20:14:00'),
+	(7, 3, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Learn JavaScript in a Week', 337, '2024-12-02 20:14:00'),
+	(8, 3, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'React for Front-End Development', 800, '2024-10-26 20:14:00'),
+	(9, 3, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Building Mobile Apps with Flutter', 272, '2024-10-02 20:14:00'),
+	(10, 4, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Introduction to Game Development', 1066, '2024-12-16 20:14:00'),
+	(11, 4, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Creating 3D Models in Blender', 906, '2024-10-31 20:14:00'),
+	(12, 4, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Animating with Unity', 727, '2024-11-29 20:14:00'),
+	(13, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Unreal Engine', 769, '2024-11-19 20:14:00'),
+	(14, 5, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Advanced Coding Techniques', 165, '2024-12-22 20:14:00'),
+	(15, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Introduction to Cloud Computing', 326, '2024-10-04 20:14:00');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
