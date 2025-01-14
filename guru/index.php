@@ -1,3 +1,10 @@
+<?php
+    include 'dataPengikut.php';
+    include 'dataRating.php';
+    include 'dataVideo.php';
+    include 'dataModul.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,53 +44,87 @@
                 <div class="flex flex-row space-x-2">
 
                     <!-- Pengikut -->
-                        <div class="col-rounded-shadow p-3 w-[20%]">
-                            <h1 class="font-poppins text-xl mx-auto line-clamp-1 mb-3">Pengikut</h1>
+                    <div class="col-rounded-shadow p-3 flex-auto">
+                        <h1 class="font-poppins text-xl mx-auto line-clamp-1 mb-3">Pengikut</h1>
 
-                            <p class="font-roboto font-normal text-lg mx-auto line-clamp-1">total pengikut</p>
-                            <h1 class="font-poppins text-4xl mx-auto line-clamp-1 rounded-lg ring-1 ring-gray-200 p-2">600</h1>
+                        <p class="font-roboto font-normal text-lg mx-auto line-clamp-1">total pengikut</p>
+                        <h1 class="font-poppins text-4xl mx-auto line-clamp-1 rounded-lg ring-1 ring-gray-200 p-2">
+                            <?php echo $resultPengikut->num_rows; ?>
+                        </h1>
 
-                            <p class="font-roboto font-normal text-lg mx-auto line-clamp-1 mb-2">list pengikut</p>
-                            <div id="list-pengikut" class="flex flex-col space-y-3 overflow-auto max-h-[calc(100%-180px)] p-1">
-                                <div class="flex items-center rounded-lg ring-1 ring-gray-200 p-2">
-                                    <div class="flex-shrink-0 overflow-hidden w-[50px] h-[50px] rounded-full bg-white items-center mr-3">
-                                        <div class="mx-auto">
-                                            <img id="profilePhoto" src="/Study-Tube/assets/foto_profil.jpg">
+                        <p class="font-roboto font-normal text-lg mx-auto line-clamp-1 mb-2">list pengikut</p>
+                        <div id="list-pengikut" class="flex flex-col space-y-3 overflow-auto max-h-[calc(100%-180px)] p-1">
+                            <?php if ($resultPengikut && $resultPengikut->num_rows > 0): ?>
+                                <?php while ($pengikut = $resultPengikut->fetch_assoc()): ?>
+                                    <div class="flex items-center rounded-lg ring-1 ring-gray-200 p-2" title="<?= htmlspecialchars($pengikut['pengikut_nama_murid']); ?>">
+                                        <div class="flex-shrink-0 overflow-hidden w-[50px] h-[50px] rounded-full bg-white items-center mr-3">
+                                            <div class="mx-auto">
+                                                <img id="profilePhoto" src="<?= htmlspecialchars($pengikut['pengikut_foto_profil_murid']); ?>">
+                                            </div>
                                         </div>
+                                        <p class="text-lg font-roboto font-normal line-clamp-1"><?= htmlspecialchars($pengikut['pengikut_nama_murid']); ?></p>
                                     </div>
-                                    <p class="text-lg font-roboto font-normal line-clamp-1">Guru 1</p>
-                                </div>
-                            </div>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p class="text-lg font-roboto font-normal">Belum ada pengikut.</p>
+                            <?php endif; ?>
                         </div>
+                    </div>
 
                     <!-- Rating -->
 
-                        <div class="col-rounded-shadow p-3 w-[20%]">
+                    <div class="col-rounded-shadow p-3 flex-auto">
                         <h1 class="font-poppins text-xl mx-auto line-clamp-1 mb-3">Rating</h1>
 
-                            <p class="font-roboto font-normal text-lg mx-auto line-clamp-1">total rating</p>
-                            <h1 class="font-poppins text-4xl mx-auto line-clamp-1 rounded-lg ring-1 ring-gray-200 p-2">5.0</h1>
-
-                            <p class="font-roboto font-normal text-lg mx-auto line-clamp-1 mb-2">list rating</p>
-                            <div id="list-rating" class="flex flex-col space-y-3 overflow-auto max-h-[calc(100%-180px)] p-1">
-                            <div class="flex items-center rounded-lg ring-1 ring-gray-200 p-2">
-                                <div class="flex-shrink-0 overflow-hidden w-[50px] h-[50px] rounded-full bg-white items-center mr-3">
-                                    <div class="mx-auto">
-                                        <img id="profilePhoto" src="/Study-Tube/assets/foto_profil.jpg">
+                        <p class="font-roboto font-normal text-lg mx-auto line-clamp-1">Total Rating</p>
+                        <h1 class="font-poppins text-4xl mx-auto line-clamp-1 rounded-lg ring-1 ring-gray-200 p-2">
+                            <?php 
+                            // Hitung rata-rata rating jika ada data
+                            if ($resultRating && $resultRating->num_rows > 0) {
+                                $totalScore = 0;
+                                $numRatings = 0;
+                                while ($row = $resultRating->fetch_assoc()) {
+                                    $totalScore += $row['skor_rating'];
+                                    $numRatings++;
+                                }
+                                echo number_format($totalScore / $numRatings, 1); // Rata-rata dengan 1 angka desimal
+                                $resultRating->data_seek(0); // Reset pointer hasil query untuk digunakan lagi
+                            } else {
+                                echo "0.0";
+                            }
+                            ?>
+                        </h1>
+                        <p class="font-roboto font-normal text-lg mx-auto line-clamp-1 mb-2">List Rating</p>
+                        <div id="list-rating" class="flex flex-col space-y-3 overflow-auto max-h-[calc(100%-180px)] p-1">
+                            <?php if ($resultRating && $resultRating->num_rows > 0): ?>
+                                <?php while ($rating = $resultRating->fetch_assoc()): ?>
+                                    <div class="flex items-center rounded-lg ring-1 ring-gray-200 p-2" title="<?= htmlspecialchars($rating['rating_nama_murid']); ?>">
+                                        <div class="flex-shrink-0 overflow-hidden w-[50px] h-[50px] rounded-full bg-white items-center mr-3">
+                                            <div class="mx-auto">
+                                                <img id="profilePhoto" src="<?= htmlspecialchars($rating['rating_foto_profil_murid']); ?>" alt="Foto Profil">
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col text-left -space-y-2">
+                                            <p class="text-lg font-roboto font-normal line-clamp-1"><?= htmlspecialchars($rating['rating_nama_murid']); ?></p>
+                                            <div class="flex flex-row text-[#FFCC00]">
+                                                <?php 
+                                                // Tampilkan bintang berdasarkan rating_score
+                                                for ($i = 1; $i <= 5; $i++): 
+                                                    if ($i <= $rating['skor_rating']): ?>
+                                                        <span>&#9733;</span> <!-- Bintang aktif -->
+                                                    <?php else: ?>
+                                                        <span class="text-gray-300">&#9733;</span> <!-- Bintang tidak aktif -->
+                                                    <?php endif; 
+                                                endfor; ?>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex flex-col text-left -space-y-2">
-                                    <p class="text-lg font-roboto font-normal line-clamp-1">Guru 1</p>
-                                    <div class="flex flex-row text-[#FFCC00]">
-                                        <span>&#9733;</span>
-                                        <span>&#9733;</span>
-                                        <span>&#9733;</span>
-                                        <span>&#9733;</span>
-                                        <span class="text-gray-300">&#9733;</span>
-                                    </div>
-                                </div>
-                            </div>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p class="text-lg font-roboto font-normal">Belum ada rating.</p>
+                            <?php endif; ?>
                         </div>
+                    </div>
 
                 </div>
 
@@ -95,42 +136,42 @@
                         <div class="col-rounded-shadow p-2 px-3 w-full">
                             <h1 class="font-poppins text-xl mx-auto line-clamp-1 p-2 mb-2">Video</h1>
                             <div id="list-video" class="flex flex-col space-y-3 overflow-auto max-h-[calc(100%-75px)] p-1">
-                                
-                            <?php
-                                for ($i = 0; $i < 10; $i++) {
-                                    echo '
-                                <div onclick="location.href=/Study-Tube/siswa/tonton/index.php?" class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 cursor-pointer">
-                                    <p class="font-roboto text-black text-ellipsis line-clamp-2 mb-1">
-                                        how to make video (real no clickbait) how to make video (real no clickbait) how to make video (real no clickbait)
-                                    </p>
-                                    <div class="flex items-center space-x-3">
-                                        <!-- Thumbnail -->
-                                        <div class="overflow-hidden w-[125px] h-[70px] bg-white">
-                                            <div class="mx-auto item thumbnail">
-                                                <img src="/Study-Tube/assets/video_thumbnail.jpg" alt="" class="w-full h-full object-cover">
+
+                                <?php if ($resultVideo && $resultVideo->num_rows > 0): ?>
+                                    <?php while ($video = $resultVideo->fetch_assoc()): ?>
+                                        <div onclick="location.href=/Study-Tube/siswa/tonton/index.php?" class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 cursor-pointer">
+                                            <p class="font-roboto text-black text-ellipsis line-clamp-2 mb-1">
+                                                <?= htmlspecialchars($video['title']); ?>
+                                            </p>
+                                            <div class="flex items-center space-x-3">
+                                                <!-- Thumbnail -->
+                                                <div class="overflow-hidden w-[125px] h-[70px] bg-white flex items-center justify-center">
+                                                    <div class="mx-auto item thumbnail">
+                                                        <img src="<?= htmlspecialchars($video['thumbnail']); ?>" alt="" class="object-cover">
+                                                    </div>
+                                                </div>
+                                                <!-- Title and Details -->
+                                                <div class="flex-1">
+                                                    <!-- Title -->
+                                                    
+                                                    <!-- Views and Koin -->
+                                                    <div class="flex justify-between items-center">
+                                                        <div>
+                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Views</h1>
+                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Koin</h1>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden"><?= htmlspecialchars($video['views']); ?></h1>
+                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">1</h1>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Title and Details -->
-                                        <div class="flex-1">
-                                            <!-- Title -->
-                                            
-                                            <!-- Views and Koin -->
-                                            <div class="flex justify-between items-center">
-                                                <div>
-                                                    <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Views</h1>
-                                                    <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Koin</h1>
-                                                </div>
-                                                <div class="text-right">
-                                                    <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">100</h1>
-                                                    <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">1</h1>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                ';
-                                }
-                            ?>
+                                    <?php endwhile; ?>
+                                <?php else: ?>
+                                    <p class="text-lg font-roboto font-normal">Belum ada video tersedia.</p>
+                                <?php endif; ?>
 
                             </div>
                         </div>
@@ -142,27 +183,32 @@
                             <h1 class="font-poppins text-xl mx-auto line-clamp-1 p-2 mb-2">Modul</h1>
                             <div id="list-modul" class="flex flex-col space-y-3 overflow-auto max-h-[calc(100%-75px)] p-1">
                             
-                            <?php
-                                for ($i = 0; $i < 10; $i++) {
-                                    echo '
-                                <div onclick="location.href=/Study-Tube/siswa/tonton/index.php?" class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 cursor-pointer items-center">
-                                    <div class="flex flex-1 overflow-hidden rounded-lg mt-1 bg-[#D9534F] px-2 py-1">
-                                        <p class="font-roboto text-white text-ellipsis line-clamp-1 pl-2">how to make video (real no clickbait)</p>
-                                    </div>
-                                    <div class="flex flex-1 justify-between items-center mt-1">
-                                        <div>
-                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Unduhan</h1>
-                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Koin</h1>
+                            <?php if ($resultModul && $resultModul->num_rows > 0): ?>
+                                <?php while ($modul = $resultModul->fetch_assoc()): ?>
+                                    <?php
+                                        // Menentukan background color berdasarkan file extension
+                                        $file = htmlspecialchars($modul['modul']);
+                                        $bgColor = (strpos($file, '.pdf') !== false) ? 'bg-[#D9534F]' : (strpos($file, '.docx') !== false ? 'bg-[#0078D4]' : 'bg-gray-500');
+                                    ?>
+                                    <div onclick="location.href=/Study-Tube/siswa/tonton/index.php?" class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 cursor-pointer items-center">
+                                        <div class="flex flex-1 overflow-hidden rounded-lg mt-1 <?= $bgColor ?> px-2 py-1">
+                                            <p class="font-roboto text-white text-ellipsis line-clamp-1 pl-2"><?= htmlspecialchars($modul['title']); ?></p>
                                         </div>
-                                        <div class="text-right">
-                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">100</h1>
-                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">1</h1>
+                                        <div class="flex flex-1 justify-between items-center mt-1">
+                                            <div>
+                                                <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Unduhan</h1>
+                                                <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Koin</h1>
+                                            </div>
+                                            <div class="text-right">
+                                                <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden"><?= htmlspecialchars($modul['download']); ?></h1>
+                                                <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">1</h1>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                ';
-                                }
-                            ?>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p class="text-lg font-roboto font-normal">Belum ada modul tersedia.</p>
+                            <?php endif; ?>
 
                             </div>
                         </div>

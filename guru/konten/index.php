@@ -31,7 +31,7 @@
         
         <!-- Content -->
         <div class="container mt-12 p-3">
-            <div class="flex flex-col h-[48vh] space-y-4">
+            <div class="flex flex-col max-h-[calc(100%-50px)] space-y-4">
 
                     <!-- Video -->
                     <div class="col-rounded-shadow p-4 w-full h-full bg-white shadow-lg rounded-lg">
@@ -61,7 +61,7 @@
                             </table>
 
                             <!-- List Video -->
-                            <div id="list-video" class="overflow-auto max-h-[360px]">
+                            <div id="list-video" class="overflow-auto max-h-[30vh]">
                                 <table class="table-auto w-full" style="border-spacing: 0">
                                     <tbody>
                                         <?php
@@ -119,7 +119,7 @@
                             </table>
 
                             <!-- List Modul -->
-                            <div id="list-modul" class="overflow-auto max-h-[320px]">
+                            <div id="list-modul" class="overflow-auto max-h-[30vh]">
                                 <table class="table-auto w-full" style="border-spacing: 0">
                                     <tbody>
                                         <?php
