@@ -188,7 +188,15 @@
                                     <?php
                                         // Menentukan background color berdasarkan file extension
                                         $file = htmlspecialchars($modul['modul']);
-                                        $bgColor = (strpos($file, '.pdf') !== false) ? 'bg-[#D9534F]' : (strpos($file, '.docx') !== false ? 'bg-[#0078D4]' : 'bg-gray-500');
+                                        if (strpos($file, '.pdf') !== false) {
+                                            $bgColor = 'bg-[#D9534F]'; // Warna untuk PDF
+                                        } elseif (strpos($file, '.docx') !== false || strpos($file, '.doc') !== false) {
+                                            $bgColor = 'bg-[#0078D4]'; // Warna untuk DOC dan DOCX
+                                        } elseif (strpos($file, '.pptx') !== false || strpos($file, '.ppt') !== false) {
+                                            $bgColor = 'bg-[#FF8C00]'; // Warna untuk PPT dan PPTX
+                                        } else {
+                                            $bgColor = 'bg-[#CCCCCC]'; // Warna default jika tidak ada ekstensi yang cocok
+                                        }
                                     ?>
                                     <div onclick="location.href=/Study-Tube/siswa/tonton/index.php?" class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 cursor-pointer items-center">
                                         <div class="flex flex-1 overflow-hidden rounded-lg mt-1 <?= $bgColor ?> px-2 py-1">

@@ -38,6 +38,9 @@ input::placeholder {
   background-color: #48c774;
   color: white;
 }
+#sidebar.hidden {
+  display: none;
+}
 .sidebar-content {
   padding: 15px;
 }
