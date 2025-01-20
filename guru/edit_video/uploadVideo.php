@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+include 'datateacherID.php';
+
 if (isset($_POST['videoID'])) {
     $videoID = $_POST['videoID'];
     // Gunakan $videoID untuk update atau hapus
@@ -120,13 +122,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $modulePath = $moduleDir . 'module_' . time() . '_' . $moduleName;
                     $moduleTitle = pathinfo($moduleName, PATHINFO_FILENAME);
                     move_uploaded_file($_FILES['module_file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $modulePath);
+    
+                    // Periksa apakah modul sudah ada
+                    $checkModulQuery = "SELECT * FROM modul WHERE videoID = '$videoID'";
+                    $resultModul = $conn->query($checkModulQuery);
+    
+                    if ($resultModul->num_rows > 0) {
+                        // Jika modul sudah ada, hapus file modul lama
+                        $row = $resultModul->fetch_assoc();
+                        $oldModulePath = $_SERVER['DOCUMENT_ROOT'] . $row['modul'];
+                        if (file_exists($oldModulePath)) {
+                            unlink($oldModulePath); // Hapus file modul lama
+                        }
 
-                    // Update atau Insert ke Tabel Modul (update jika modul sudah ada)
-                    $sqlModul = "UPDATE modul SET title = '$moduleTitle', modul = '$modulePath' WHERE videoID = '$videoID'";
-                    $conn->query($sqlModul);
+                        // Update entri modul dengan file baru
+                        $updateModulQuery = "UPDATE modul SET title = '$moduleTitle', modul = '$modulePath' WHERE videoID = '$videoID'";
+                        $conn->query($updateModulQuery);
+                    } else {
+                        // Jika modul belum ada, tambahkan modul baru
+                        $insertModulQuery = "INSERT INTO modul (teacherID, videoID, title, download, modul) 
+                                             VALUES ('$teacherID', '$videoID', '$moduleTitle', 0, '$modulePath')";
+                        $conn->query($insertModulQuery);
+                    }
+                } else {
+                    die("Modul tidak valid. Pastikan formatnya sesuai dengan tipe yang diperbolehkan dan ukuran maksimal 4MB.");
                 }
             }
-
             // Redirect setelah berhasil
             header("Location: /Study-Tube/guru/konten/index.php");
             exit;
