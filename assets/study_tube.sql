@@ -16,12 +16,10 @@
 
 
 -- Dumping database structure for study_tube
-DROP DATABASE IF EXISTS `study_tube`;
 CREATE DATABASE IF NOT EXISTS `study_tube` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `study_tube`;
 
 -- Dumping structure for table study_tube.diskusi
-DROP TABLE IF EXISTS `diskusi`;
 CREATE TABLE IF NOT EXISTS `diskusi` (
   `discussionID` int NOT NULL AUTO_INCREMENT,
   `studentID` int NOT NULL,
@@ -37,10 +35,8 @@ CREATE TABLE IF NOT EXISTS `diskusi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.diskusi: ~0 rows (approximately)
-DELETE FROM `diskusi`;
 
 -- Dumping structure for table study_tube.guru
-DROP TABLE IF EXISTS `guru`;
 CREATE TABLE IF NOT EXISTS `guru` (
   `teacherID` int NOT NULL AUTO_INCREMENT,
   `schoolID` int NOT NULL,
@@ -55,8 +51,7 @@ CREATE TABLE IF NOT EXISTS `guru` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.guru: ~5 rows (approximately)
-DELETE FROM `guru`;
-INSERT INTO `guru` (`teacherID`, `schoolID`, `userID`, `followers`, `balance`) VALUES
+REPLACE INTO `guru` (`teacherID`, `schoolID`, `userID`, `followers`, `balance`) VALUES
 	(1, 1, 2, 160, 576),
 	(2, 1, 5, 303, 684),
 	(3, 1, 6, 415, 922),
@@ -64,7 +59,6 @@ INSERT INTO `guru` (`teacherID`, `schoolID`, `userID`, `followers`, `balance`) V
 	(5, 1, 8, 402, 533);
 
 -- Dumping structure for table study_tube.ikuti
-DROP TABLE IF EXISTS `ikuti`;
 CREATE TABLE IF NOT EXISTS `ikuti` (
   `studentID` int NOT NULL,
   `teacherID` int NOT NULL,
@@ -75,8 +69,7 @@ CREATE TABLE IF NOT EXISTS `ikuti` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table study_tube.ikuti: ~7 rows (approximately)
-DELETE FROM `ikuti`;
-INSERT INTO `ikuti` (`studentID`, `teacherID`) VALUES
+REPLACE INTO `ikuti` (`studentID`, `teacherID`) VALUES
 	(1, 3),
 	(1, 1),
 	(1, 2),
@@ -86,7 +79,6 @@ INSERT INTO `ikuti` (`studentID`, `teacherID`) VALUES
 	(4, 1);
 
 -- Dumping structure for table study_tube.koin
-DROP TABLE IF EXISTS `koin`;
 CREATE TABLE IF NOT EXISTS `koin` (
   `coinID` int NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
@@ -99,10 +91,8 @@ CREATE TABLE IF NOT EXISTS `koin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.koin: ~0 rows (approximately)
-DELETE FROM `koin`;
 
 -- Dumping structure for table study_tube.modul
-DROP TABLE IF EXISTS `modul`;
 CREATE TABLE IF NOT EXISTS `modul` (
   `moduleID` int NOT NULL AUTO_INCREMENT,
   `teacherID` int NOT NULL,
@@ -118,14 +108,12 @@ CREATE TABLE IF NOT EXISTS `modul` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.modul: ~4 rows (approximately)
-DELETE FROM `modul`;
-INSERT INTO `modul` (`moduleID`, `teacherID`, `videoID`, `title`, `download`, `modul`) VALUES
+REPLACE INTO `modul` (`moduleID`, `teacherID`, `videoID`, `title`, `download`, `modul`) VALUES
 	(1, 1, 1, 'How to Create a Website', 93, '/Study-Tube/assets/modul_pdf.pdf'),
 	(2, 1, 2, 'Advanced PHP Techniques', 89, '/Study-Tube/assets/modul_dokumen.docx'),
 	(3, 1, 16, 'Modul untuk test', 0, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx');
 
 -- Dumping structure for table study_tube.rating
-DROP TABLE IF EXISTS `rating`;
 CREATE TABLE IF NOT EXISTS `rating` (
   `ratingID` int NOT NULL AUTO_INCREMENT,
   `studentID` int NOT NULL,
@@ -139,15 +127,13 @@ CREATE TABLE IF NOT EXISTS `rating` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.rating: ~4 rows (approximately)
-DELETE FROM `rating`;
-INSERT INTO `rating` (`ratingID`, `studentID`, `teacherID`, `rating_score`) VALUES
+REPLACE INTO `rating` (`ratingID`, `studentID`, `teacherID`, `rating_score`) VALUES
 	(1, 1, 1, 1),
 	(2, 2, 1, 5),
 	(3, 3, 1, 3),
 	(4, 4, 1, 2);
 
 -- Dumping structure for table study_tube.sekolah
-DROP TABLE IF EXISTS `sekolah`;
 CREATE TABLE IF NOT EXISTS `sekolah` (
   `schoolID` int NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
@@ -158,12 +144,10 @@ CREATE TABLE IF NOT EXISTS `sekolah` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.sekolah: ~0 rows (approximately)
-DELETE FROM `sekolah`;
-INSERT INTO `sekolah` (`schoolID`, `userID`, `school_address`) VALUES
+REPLACE INTO `sekolah` (`schoolID`, `userID`, `school_address`) VALUES
 	(1, 3, 'Jl. Logam no. 1');
 
 -- Dumping structure for table study_tube.siswa
-DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE IF NOT EXISTS `siswa` (
   `studentID` int NOT NULL AUTO_INCREMENT,
   `schoolID` int NOT NULL,
@@ -177,8 +161,7 @@ CREATE TABLE IF NOT EXISTS `siswa` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.siswa: ~6 rows (approximately)
-DELETE FROM `siswa`;
-INSERT INTO `siswa` (`studentID`, `schoolID`, `userID`, `balance`) VALUES
+REPLACE INTO `siswa` (`studentID`, `schoolID`, `userID`, `balance`) VALUES
 	(1, 1, 1, 70),
 	(2, 1, 9, 347),
 	(3, 1, 10, 231),
@@ -187,7 +170,6 @@ INSERT INTO `siswa` (`studentID`, `schoolID`, `userID`, `balance`) VALUES
 	(6, 1, 13, 268);
 
 -- Dumping structure for table study_tube.user
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `userID` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -199,8 +181,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.user: ~12 rows (approximately)
-DELETE FROM `user`;
-INSERT INTO `user` (`userID`, `email`, `password`, `name`, `profile_photo`, `role`) VALUES
+REPLACE INTO `user` (`userID`, `email`, `password`, `name`, `profile_photo`, `role`) VALUES
 	(1, 'siswa@gmail.com', '2020', 'MFarhadA', '/Study-Tube/db/profile_photo/677a63b0ab1a7.jpg', 1),
 	(2, 'guru', '2020', 'Guru Ajil', '/Study-Tube/db/profile_photo/677bcefc7e164.jpg', 2),
 	(3, 'sekolah', '2020', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 3),
@@ -215,7 +196,6 @@ INSERT INTO `user` (`userID`, `email`, `password`, `name`, `profile_photo`, `rol
 	(13, 'murid5@example.com', '2020', 'Murid Lima', '/Study-Tube/assets/foto_profil.jpg', 1);
 
 -- Dumping structure for table study_tube.video
-DROP TABLE IF EXISTS `video`;
 CREATE TABLE IF NOT EXISTS `video` (
   `videoID` int NOT NULL AUTO_INCREMENT,
   `teacherID` int NOT NULL,
@@ -231,8 +211,7 @@ CREATE TABLE IF NOT EXISTS `video` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.video: ~19 rows (approximately)
-DELETE FROM `video`;
-INSERT INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `views`, `upload_date`, `favorite`) VALUES
+REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `views`, `upload_date`, `favorite`) VALUES
 	(1, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'How to Learn Programming', 359, '2024-09-22 20:14:00', 0),
 	(2, 1, '/Study-Tube/db/video/video_1737316521_x8wOqA3gBbJX1548.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 310, '2025-01-19 19:55:21', 0),
 	(3, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Python in 30 Days', 762, '2024-12-17 20:14:00', 0),
