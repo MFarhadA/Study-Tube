@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
     // Upload Video
     if (isset($_FILES['video_file']) && $_FILES['video_file']['error'] === UPLOAD_ERR_OK) {
         $allowedVideoTypes = ['video/mp4', 'video/avi', 'video/mov', 'video/mkv'];
-        if (in_array($_FILES['video_file']['type'], $allowedVideoTypes) && $_FILES['video_file']['size'] <= 10485760) { // Max 10MB
+        if (in_array($_FILES['video_file']['type'], $allowedVideoTypes) && $_FILES['video_file']['size'] <= 209715200) { // Max 200MB
             $videoName = basename($_FILES['video_file']['name']);
             $videoPath = $videoDir . 'video_' . time() . '_' . $videoName;
             move_uploaded_file($_FILES['video_file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $videoPath);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
     // Upload Thumbnail
     if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPLOAD_ERR_OK) {
         $allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if (in_array($_FILES['profile_photo']['type'], $allowedImageTypes) && $_FILES['profile_photo']['size'] <= 2097152) { // Max 2MB
+        if (in_array($_FILES['profile_photo']['type'], $allowedImageTypes) && $_FILES['profile_photo']['size'] <= 4194304 ) { // Max 4MB
             $thumbnailName = basename($_FILES['profile_photo']['name']);
             $thumbnailPath = $thumbnailDir . 'thumbnail_' . time() . '_' . $thumbnailName;
             move_uploaded_file($_FILES['profile_photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $thumbnailPath);
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
         // Upload Modul (opsional)
         if (isset($_FILES['module_file']) && $_FILES['module_file']['error'] === UPLOAD_ERR_OK) {
             $allowedModuleTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'];
-            if (in_array($_FILES['module_file']['type'], $allowedModuleTypes) && $_FILES['module_file']['size'] <= 5242880) { // Max 5MB
+            if (in_array($_FILES['module_file']['type'], $allowedModuleTypes) && $_FILES['module_file']['size'] <= 4194304 ) { // Max 4MB
                 $moduleName = basename($_FILES['module_file']['name']);
                 $modulePath = $moduleDir . 'module_' . time() . '_' . $moduleName;
                 $moduleTitle = pathinfo($moduleName, PATHINFO_FILENAME);
