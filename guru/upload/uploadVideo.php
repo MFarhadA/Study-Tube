@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
             $videoPath = $videoDir . 'video_' . time() . '_' . $videoName;
             move_uploaded_file($_FILES['video_file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $videoPath);
         } else {
-            die("Video tidak valid. Pastikan formatnya MP4, AVI, MOV, atau MKV dengan ukuran maksimal 10MB.");
+            die("Video tidak valid. Pastikan formatnya MP4, AVI, MOV, atau MKV dengan ukuran maksimal 200MB.");
         }
     }
 
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
             $thumbnailPath = $thumbnailDir . 'thumbnail_' . time() . '_' . $thumbnailName;
             move_uploaded_file($_FILES['profile_photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $thumbnailPath);
         } else {
-            die("Thumbnail tidak valid. Pastikan formatnya JPEG, PNG, atau GIF dengan ukuran maksimal 2MB.");
+            die("Thumbnail tidak valid. Pastikan formatnya JPEG, PNG, atau GIF dengan ukuran maksimal 4MB.");
         }
     }
 
@@ -81,6 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
                 $sqlModul = "INSERT INTO modul (teacherID, videoID, title, download, modul)
                              VALUES ('$teacherID', '$videoID', '$moduleTitle', 0, '$modulePath')";
                 $conn->query($sqlModul);
+            } else {
+                die("Thumbnail tidak valid. Pastikan formatnya JPEG, PNG, atau GIF dengan ukuran maksimal 4MB.");
             }
         }
 
