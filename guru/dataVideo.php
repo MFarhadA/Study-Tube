@@ -18,7 +18,8 @@ $sql = "SELECT
             thumbnail,
             title,
             video,
-            views
+            views,
+            favorite
         FROM
             video
         WHERE

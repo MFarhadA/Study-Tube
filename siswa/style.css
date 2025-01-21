@@ -57,3 +57,30 @@
   .collapsed-content {
     margin-left: 0;
   }
+
+  .video-container {
+    position: relative;
+    width: 100%; /* lebar 100% dari container */
+    max-width: 100%; /* maksimal lebar 100% */
+    height: 0;
+    padding-top: 56.25%; /* 16:9 aspect ratio, karena 9/16 = 0.5625 (atau 56.25%) */
+    overflow: hidden;
+    background-color: #000; /* Tambahkan warna latar belakang hitam jika video tidak dimuat */
+}
+
+.video-container iframe, .video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Menjaga aspect ratio dan mengisi area */
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media (max-width: 600px) {
+    .video-container {
+        padding-top: 100%; /* Maksimal 1:1 aspect ratio di layar kecil */
+    }
+}

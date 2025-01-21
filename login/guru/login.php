@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         
         $_SESSION['user_id'] = $row['userID'];
+        $_SESSION['role'] = $row['role'];
         header("Location: ../../guru/index.php");
         exit;
 

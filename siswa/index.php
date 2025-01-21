@@ -1,5 +1,5 @@
 <?php
-
+    include 'verificationLogin.php';
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +57,7 @@
             </form>
 
             <!-- SEKOLAH, GURU, MATA PELAJARAN -->
-            <div class="row text-center p-2 mb-2">
+            <div class="row text-center p-2 mb-2 hidden">
                 <div class="flex space-x-3">
                 <div onclick="location='register/index.html'" class="col truncate my-max shadow-md py-4 text-white text-2xl font-poppins rounded-[10px] bg-[#40BA6A] cursor-pointer">
                     SEKOLAH
@@ -69,6 +69,10 @@
                     MATA PELAJARAN
                 </div>
                 </div>
+            </div>
+
+            <div class="col truncate my-max shadow-md py-4 text-white text-2xl font-poppins rounded-[10px] bg-[#40BA6A] text-center mb-2">
+                    SELAMAT DATANG DI STUDY TUBE
             </div>
 
             <!-- Mengikuti -->

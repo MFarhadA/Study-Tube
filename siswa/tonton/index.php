@@ -48,6 +48,7 @@ $sql = "
         u.userID,
         v.title,
         v.views, 
+        v.favorite,
         u.name AS teacher_name, 
         u.profile_photo AS teacher_profile_photo,
         g.followers,
@@ -120,6 +121,22 @@ $stmtCheckFavorite->execute();
 $resultCheckFavorite = $stmtCheckFavorite->get_result();
 $isFavorite = $resultCheckFavorite->num_rows > 0;  // true jika sudah favorite, false jika belum
 
+// Cek apakah video sudah pernah ditonton oleh pengguna
+if (!isset($_SESSION['watched_videos'])) {
+    $_SESSION['watched_videos'] = [];
+}
+
+if (!in_array($videoID, $_SESSION['watched_videos'])) {
+    // Tambahkan video ke dalam array session watched_videos
+    $_SESSION['watched_videos'][] = $videoID;
+
+    // Update views di database
+    $sqlUpdateViews = "UPDATE video SET views = views + 1 WHERE videoID = ?";
+    $stmtUpdateViews = $conn->prepare($sqlUpdateViews);
+    $stmtUpdateViews->bind_param("i", $videoID);
+    $stmtUpdateViews->execute();
+}
+
 include('downloadModul.php');
 ?>
 
@@ -150,7 +167,7 @@ include('downloadModul.php');
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                 </button>
-                <h1 class="font-poppins font-extrabold text-[#40BA6A] text-xl my-auto">Beranda</h1>
+                <h1 class="font-poppins font-extrabold text-[#40BA6A] text-xl my-auto">Tonton</h1>
             </div>
         </div>
         
@@ -176,10 +193,12 @@ include('downloadModul.php');
 
             <!-- Video -->
             <?php if ($videoLink): ?>
-                <video controls autoplay class="w-[calc(100vh-10px)] rounded-lg mb-2 items-center mx-auto">
-                    <source src="<?php echo htmlspecialchars($videoLink); ?>" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <div class="video-container">
+                    <video controls autoplay class="w-[calc(100vh-10px)] rounded-lg mb-2 items-center mx-auto">
+                        <source src="<?php echo htmlspecialchars($videoLink); ?>" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
 
                 <div class = "flex flex-row justify-between mt-3">
 
@@ -207,11 +226,11 @@ include('downloadModul.php');
                             <input type="hidden" name="action" value="<?= $isFavorite ? 'unfavorite' : 'favorite'; ?>">
                             <button 
                                 type="submit"
-                                class="<?= $isFavorite ? 'bg-white text-[#48C774] ring-2 ring-[#48C774]' : 'bg-[#48C774] text-white' ?> font-poppins flex items-center gap-2 px-4 py-2 rounded">
+                                class="<?= $isFavorite ? 'bg-white text-[#48C774] ring-2 ring-[#48C774]' : 'bg-[#48C774] text-white' ?> font-poppins flex items-center gap-2 px-3 py-2 rounded text-center">
                                 <svg viewBox="0,0,20,20" xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke-width="1" transform="rotate(0) matrix(1 0 0 1 0 0)">
                                     <path fill="currentColor" d="m9.653 16.915l-.005-.003l-.019-.01l-.067-.035l-.243-.135a22 22 0 0 1-3.434-2.412C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22 22 0 0 1-3.744 2.582l-.019.01l-.005.003h-.002a.74.74 0 0 1-.69.001z"></path>
                                 </svg>
-                                Favorit
+                                <?= htmlspecialchars($row['favorite']); ?>
                             </button>
                         </form>
 
@@ -227,15 +246,8 @@ include('downloadModul.php');
                             </div>
                         </div>
                         <div>
-                        <p onclick="location.href='/Study-Tube/siswa/profil/index.php?teacherID=<?= urlencode($row['teacherID']) ?>'" class="text-lg font-poppins cursor-pointer"><?= htmlspecialchars($row['teacher_name']); ?></p>
-                        <p class="text-sm font-roboto text-[#228444]"><?= htmlspecialchars($row['followers']); ?> Pengikut</p>
-                            <div class="flex text-white">
-                                <span>&#9733;</span>
-                                <span>&#9733;</span>
-                                <span>&#9733;</span>
-                                <span>&#9733;</span>
-                                <span class="text-gray-300">&#9733;</span>
-                            </div>
+                            <p onclick="location.href='/Study-Tube/siswa/profil/index.php?teacherID=<?= urlencode($row['teacherID']) ?>'" class="text-lg font-poppins cursor-pointer"><?= htmlspecialchars($row['teacher_name']); ?></p>
+                            <p class="text-sm font-roboto text-[#228444]"><?= htmlspecialchars($row['followers']); ?> Pengikut</p>
                         </div>
                     </div>
                     <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
@@ -252,7 +264,7 @@ include('downloadModul.php');
                             </button>
                         </form>
 
-                        <button class="flex items-center bg-white text-[#48C774] font-poppins px-4 py-2 rounded">
+                        <button class="hidden flex items-center bg-white text-[#48C774] font-poppins px-4 py-2 rounded">
                             <div class="flex items-center mr-3 space-x-1">
                                 <svg width="26" height="25" viewBox="0 0 26 25" fill="#228444" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.4409 9.57993C13.8606 9.93892 14.4919 9.8897 14.8508 9.47C15.2098 9.0503 15.1606 8.41905 14.7409 8.06007L13.4409 9.57993ZM11.6364 7.9L11.638 6.9H11.6364V7.9ZM14.7359 16.9442C15.1579 16.588 15.2113 15.9571 14.8551 15.535C14.4989 15.113 13.868 15.0596 13.4459 15.4158L14.7359 16.9442ZM0 12.5C0 19.3031 4.99234 25 11.3636 25V23C6.28757 23 2 18.3994 2 12.5H0ZM11.3636 25C17.7349 25 22.7273 19.3031 22.7273 12.5H20.7273C20.7273 18.3994 16.4397 23 11.3636 23V25ZM22.7273 12.5C22.7273 5.69686 17.7349 0 11.3636 0V2C16.4397 2 20.7273 6.6006 20.7273 12.5H22.7273ZM11.3636 0C4.99234 0 0 5.69686 0 12.5H2C2 6.6006 6.28757 2 11.3636 2V0ZM14.7409 8.06007C13.8704 7.31544 12.7754 6.9019 11.638 6.9L11.6347 8.9C12.2852 8.90108 12.9231 9.13703 13.4409 9.57993L14.7409 8.06007ZM11.6364 6.9C8.71791 6.9 6.54545 9.51955 6.54545 12.5H8.54545C8.54545 10.3975 10.0363 8.9 11.6364 8.9V6.9ZM6.54545 12.5C6.54545 15.4805 8.71791 18.1 11.6364 18.1V16.1C10.0363 16.1 8.54545 14.6025 8.54545 12.5H6.54545ZM11.6364 18.1C12.8134 18.1 13.8875 17.6602 14.7359 16.9442L13.4459 15.4158C12.9263 15.8544 12.3008 16.1 11.6364 16.1V18.1ZM10.8182 2C13.133 2 16.4765 2.28757 19.2098 3.75042C20.5606 4.47334 21.7454 5.4742 22.5967 6.86012C23.4468 8.24409 24 10.0698 24 12.5H26C26 9.75518 25.3713 7.55591 24.3009 5.81332C23.2317 4.07268 21.7574 2.84541 20.1535 1.98708C16.9777 0.287428 13.2303 0 10.8182 0V2ZM24 12.5C24 14.9302 23.4468 16.7559 22.5967 18.1399C21.7454 19.5258 20.5606 20.5267 19.2098 21.2496C16.4765 22.7124 13.133 23 10.8182 23V25C13.2303 25 16.9777 24.7126 20.1535 23.0129C21.7574 22.1546 23.2317 20.9273 24.3009 19.1867C25.3713 17.4441 26 15.2448 26 12.5H24Z"/>

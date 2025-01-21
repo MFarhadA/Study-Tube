@@ -26,17 +26,20 @@ while ($row = $resultvideoID->fetch_assoc()) {
 }
 $stmt->close();
 
+$resultFavorit = [];
+
 if (count($videoIDs) > 0) {
+
     // Query untuk mendapatkan detail video berdasarkan videoID
     $placeholders = implode(',', array_fill(0, count($videoIDs), '?')); // Placeholder untuk IN clause
     $sql = "SELECT
                 v.videoID AS video_id,
-                v.title, 
-                v.thumbnail, 
-                v.video, 
-                v.views, 
-                u.name AS teacher_name, 
-                u.profile_photo AS teacher_profile_photo
+                v.title AS video_title, 
+                v.thumbnail AS video_thumbnail, 
+                v.video AS video_path, 
+                v.views as video_views, 
+                u.name AS guru_name, 
+                u.profile_photo AS guru_photo
             FROM 
                 video v
             JOIN 
@@ -51,26 +54,10 @@ if (count($videoIDs) > 0) {
     $stmt->execute();
     $resultFavorit = $stmt->get_result();
 
-    // Siapkan data dalam format array asosiatif
-    while ($row = $resultFavorit->fetch_assoc()) {
-        $output[] = [
-            "video_id" => $row['video_id'],
-            "title" => $row['title'],
-            "thumbnail" => $row['thumbnail'],
-            "video" => $row['video'],
-            "views" => $row['views'],
-            "teacher_name" => $row['teacher_name'],
-            "teacher_profile_photo" => $row['teacher_profile_photo']
-        ];
-    }
     $stmt->close();
 } else {
     $output['error'] = "Tidak ada video favorit untuk studentID ini.";
 }
 
 $conn->close();
-
-// Tampilkan data dalam format JSON
-header('Content-Type: application/json');
-echo json_encode($output, JSON_PRETTY_PRINT);
 ?>

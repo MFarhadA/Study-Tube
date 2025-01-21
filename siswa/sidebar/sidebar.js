@@ -35,7 +35,7 @@ fetch('/Study-Tube/siswa/sidebar/sidebar.php')
                             </svg>
                             <a class="active font-poppins text-xl mt-1" href="#">Beranda</a>
                         </button>
-                        <button onclick="location='/Study-Tube/siswa/koin/index.php'" class="px-4 py-2 w-[200px] nav-item flex space-x-3 bg-[#40BA6A] rounded-[10px] transition-transform transform hover:scale-110">
+                        <button onclick="location='/Study-Tube/siswa/favorit/index.php'" class="px-4 py-2 w-[200px] nav-item flex space-x-3 bg-[#40BA6A] rounded-[10px] transition-transform transform hover:scale-110">
                             <svg viewBox="0,0,24,24" xmlns="http://www.w3.org/2000/svg" width="36" height="36" stroke="white" stroke-width="3" transform="rotate(0) matrix(1 0 0 1 0 0)"><path fill="none" fill-rule="evenodd" d="M12 20c-2.205-.48-9-4.24-9-11a5 5 0 0 1 9-3a5 5 0 0 1 9 3c0 6.76-6.795 10.52-9 11"></path></svg>
                             <a class="active font-poppins text-xl" href="#">Favorit</a>
                         </button>

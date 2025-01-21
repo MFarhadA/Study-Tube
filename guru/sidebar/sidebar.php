@@ -45,8 +45,8 @@ if (isset($_SESSION['user_id'])) {
     // Tutup koneksi
     $conn->close();
     } else {
-        $name = "Guest"; // Jika data tidak ditemukan
-        $profile_photo = "../assets/default_profile.jpg"; // Foto default jika tidak ditemukan
+        header("Location: /Study-Tube/login/login.html");
+        exit();
     }
 
 // Kirim data sebagai JSON

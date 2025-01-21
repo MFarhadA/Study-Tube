@@ -1,4 +1,5 @@
 <?php
+    include 'verificationLogin.php';
     include 'dataPengikut.php';
     include 'dataRating.php';
     include 'dataVideo.php';
@@ -41,7 +42,7 @@
             <div class="flex flex-row h-[90vh] space-x-4">
 
                 <!-- Bagian Kiri -->
-                <div class="flex flex-row space-x-2">
+                <div class="flex flex-row space-x-2 w-1/4">
 
                     <!-- Pengikut -->
                     <div class="col-rounded-shadow p-3 flex-auto">
@@ -73,7 +74,7 @@
 
                     <!-- Rating -->
 
-                    <div class="col-rounded-shadow p-3 flex-auto">
+                    <div class="col-rounded-shadow p-3 flex-auto hidden">
                         <h1 class="font-poppins text-xl mx-auto line-clamp-1 mb-3">Rating</h1>
 
                         <p class="font-roboto font-normal text-lg mx-auto line-clamp-1">Total Rating</p>
@@ -139,7 +140,7 @@
 
                                 <?php if ($resultVideo && $resultVideo->num_rows > 0): ?>
                                     <?php while ($video = $resultVideo->fetch_assoc()): ?>
-                                        <div onclick="location.href=/Study-Tube/siswa/tonton/index.php?" class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 cursor-pointer">
+                                        <div class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3">
                                             <p class="font-roboto text-black text-ellipsis line-clamp-2 mb-1">
                                                 <?= htmlspecialchars($video['title']); ?>
                                             </p>
@@ -158,11 +159,11 @@
                                                     <div class="flex justify-between items-center">
                                                         <div>
                                                             <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Views</h1>
-                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Koin</h1>
+                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Favorit</h1>
                                                         </div>
                                                         <div class="text-right">
                                                             <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden"><?= htmlspecialchars($video['views']); ?></h1>
-                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">1</h1>
+                                                            <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden"><?= htmlspecialchars($video['favorite']); ?></h1>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -198,7 +199,7 @@
                                             $bgColor = 'bg-[#CCCCCC]'; // Warna default jika tidak ada ekstensi yang cocok
                                         }
                                     ?>
-                                    <div onclick="location.href=/Study-Tube/siswa/tonton/index.php?" class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 cursor-pointer items-center">
+                                    <div class="w-full h-auto rounded-lg ring-1 ring-gray-200 py-2 px-3 items-center">
                                         <div class="flex flex-1 overflow-hidden rounded-lg mt-1 <?= $bgColor ?> px-2 py-1">
                                             <p class="font-roboto text-white text-ellipsis line-clamp-1 pl-2"><?= htmlspecialchars($modul['title']); ?></p>
                                         </div>
