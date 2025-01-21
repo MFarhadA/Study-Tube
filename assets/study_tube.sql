@@ -16,10 +16,12 @@
 
 
 -- Dumping database structure for study_tube
+DROP DATABASE IF EXISTS `study_tube`;
 CREATE DATABASE IF NOT EXISTS `study_tube` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `study_tube`;
 
 -- Dumping structure for table study_tube.diskusi
+DROP TABLE IF EXISTS `diskusi`;
 CREATE TABLE IF NOT EXISTS `diskusi` (
   `discussionID` int NOT NULL AUTO_INCREMENT,
   `studentID` int NOT NULL,
@@ -36,7 +38,24 @@ CREATE TABLE IF NOT EXISTS `diskusi` (
 
 -- Dumping data for table study_tube.diskusi: ~0 rows (approximately)
 
+-- Dumping structure for table study_tube.favorit
+DROP TABLE IF EXISTS `favorit`;
+CREATE TABLE IF NOT EXISTS `favorit` (
+  `studentID` int NOT NULL,
+  `videoID` int NOT NULL,
+  KEY `FK_favorit_siswa` (`studentID`),
+  KEY `FK_favorit_video` (`videoID`),
+  CONSTRAINT `FK_favorit_siswa` FOREIGN KEY (`studentID`) REFERENCES `siswa` (`schoolID`),
+  CONSTRAINT `FK_favorit_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table study_tube.favorit: ~2 rows (approximately)
+REPLACE INTO `favorit` (`studentID`, `videoID`) VALUES
+	(1, 1),
+	(1, 3);
+
 -- Dumping structure for table study_tube.guru
+DROP TABLE IF EXISTS `guru`;
 CREATE TABLE IF NOT EXISTS `guru` (
   `teacherID` int NOT NULL AUTO_INCREMENT,
   `schoolID` int NOT NULL,
@@ -59,6 +78,7 @@ REPLACE INTO `guru` (`teacherID`, `schoolID`, `userID`, `followers`, `balance`) 
 	(5, 1, 8, 402, 533);
 
 -- Dumping structure for table study_tube.ikuti
+DROP TABLE IF EXISTS `ikuti`;
 CREATE TABLE IF NOT EXISTS `ikuti` (
   `studentID` int NOT NULL,
   `teacherID` int NOT NULL,
@@ -79,6 +99,7 @@ REPLACE INTO `ikuti` (`studentID`, `teacherID`) VALUES
 	(4, 1);
 
 -- Dumping structure for table study_tube.koin
+DROP TABLE IF EXISTS `koin`;
 CREATE TABLE IF NOT EXISTS `koin` (
   `coinID` int NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
@@ -93,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `koin` (
 -- Dumping data for table study_tube.koin: ~0 rows (approximately)
 
 -- Dumping structure for table study_tube.modul
+DROP TABLE IF EXISTS `modul`;
 CREATE TABLE IF NOT EXISTS `modul` (
   `moduleID` int NOT NULL AUTO_INCREMENT,
   `teacherID` int NOT NULL,
@@ -105,15 +127,17 @@ CREATE TABLE IF NOT EXISTS `modul` (
   KEY `FK_modul_video` (`videoID`),
   CONSTRAINT `FK_modul_guru` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`),
   CONSTRAINT `FK_modul_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.modul: ~4 rows (approximately)
+-- Dumping data for table study_tube.modul: ~3 rows (approximately)
 REPLACE INTO `modul` (`moduleID`, `teacherID`, `videoID`, `title`, `download`, `modul`) VALUES
 	(1, 1, 1, 'How to Create a Website', 93, '/Study-Tube/assets/modul_pdf.pdf'),
 	(2, 1, 2, 'Advanced PHP Techniques', 89, '/Study-Tube/assets/modul_dokumen.docx'),
-	(3, 1, 16, 'Modul untuk test', 0, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx');
+	(3, 1, 16, 'Modul untuk test', 0, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx'),
+	(16, 1, 19, 'Keamanan_Informasi_Data_Pribadi_Pada_Med', 0, '/Study-Tube/db/module/module_1737424746_Keamanan_Informasi_Data_Pribadi_Pada_Med.pdf');
 
 -- Dumping structure for table study_tube.rating
+DROP TABLE IF EXISTS `rating`;
 CREATE TABLE IF NOT EXISTS `rating` (
   `ratingID` int NOT NULL AUTO_INCREMENT,
   `studentID` int NOT NULL,
@@ -134,6 +158,7 @@ REPLACE INTO `rating` (`ratingID`, `studentID`, `teacherID`, `rating_score`) VAL
 	(4, 4, 1, 2);
 
 -- Dumping structure for table study_tube.sekolah
+DROP TABLE IF EXISTS `sekolah`;
 CREATE TABLE IF NOT EXISTS `sekolah` (
   `schoolID` int NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
@@ -143,11 +168,12 @@ CREATE TABLE IF NOT EXISTS `sekolah` (
   CONSTRAINT `sekolah_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.sekolah: ~0 rows (approximately)
+-- Dumping data for table study_tube.sekolah: ~1 rows (approximately)
 REPLACE INTO `sekolah` (`schoolID`, `userID`, `school_address`) VALUES
 	(1, 3, 'Jl. Logam no. 1');
 
 -- Dumping structure for table study_tube.siswa
+DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE IF NOT EXISTS `siswa` (
   `studentID` int NOT NULL AUTO_INCREMENT,
   `schoolID` int NOT NULL,
@@ -170,6 +196,7 @@ REPLACE INTO `siswa` (`studentID`, `schoolID`, `userID`, `balance`) VALUES
 	(6, 1, 13, 268);
 
 -- Dumping structure for table study_tube.user
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `userID` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -196,6 +223,7 @@ REPLACE INTO `user` (`userID`, `email`, `password`, `name`, `profile_photo`, `ro
 	(13, 'murid5@example.com', '2020', 'Murid Lima', '/Study-Tube/assets/foto_profil.jpg', 1);
 
 -- Dumping structure for table study_tube.video
+DROP TABLE IF EXISTS `video`;
 CREATE TABLE IF NOT EXISTS `video` (
   `videoID` int NOT NULL AUTO_INCREMENT,
   `teacherID` int NOT NULL,
@@ -210,10 +238,10 @@ CREATE TABLE IF NOT EXISTS `video` (
   CONSTRAINT `video_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.video: ~19 rows (approximately)
+-- Dumping data for table study_tube.video: ~17 rows (approximately)
 REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `views`, `upload_date`, `favorite`) VALUES
 	(1, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'How to Learn Programming', 359, '2024-09-22 20:14:00', 0),
-	(2, 1, '/Study-Tube/db/video/video_1737316521_x8wOqA3gBbJX1548.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 310, '2025-01-19 19:55:21', 0),
+	(2, 1, '/Study-Tube/db/video/video_1737238271_x8wOqA3gBbJX1548.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 310, '2025-01-19 19:55:21', 0),
 	(3, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Python in 30 Days', 762, '2024-12-17 20:14:00', 0),
 	(4, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Understanding Machine Learning', 786, '2024-12-28 20:14:00', 0),
 	(5, 2, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Data Science for Beginners', 178, '2024-11-30 20:14:00', 0),
@@ -228,10 +256,7 @@ REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `vi
 	(14, 5, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Advanced Coding Techniques', 165, '2024-12-22 20:14:00', 0),
 	(15, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Introduction to Cloud Computing', 326, '2024-10-04 20:14:00', 0),
 	(16, 1, '/Study-Tube/db/video/video_1737238271_x8wOqA3gBbJX1548.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test', 0, '2025-01-18 22:11:11', 0),
-	(18, 1, '/Study-Tube/db/video/video_1737238854_403846832_865609728367269_6530104580771128412_n.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238854_465251918_943505241161902_6059523279570446445_n.jpg', 'wego', 0, '2025-01-18 22:20:54', 0),
-	(19, 1, '/Study-Tube/db/video/video_1737241401_270278944_965545610981234_4044999183369937235_n.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737241401_465251918_943505241161902_6059523279570446445_n.jpg', 'test file modul', 0, '2025-01-18 23:03:21', 0),
-	(20, 1, '/Study-Tube/db/video/video_1737241401_270278944_965545610981234_4044999183369937235_n.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238854_465251918_943505241161902_6059523279570446445_n.jpg', 'test tanpa modul', 0, '2025-01-19 20:05:49', 0),
-	(24, 1, '/Study-Tube/db/video/video_1737325887_358009072_229987699929884_5316250304367838857_n.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737325887_ThreeCore.png', 'test hapus modul', 0, '2025-01-19 22:31:27', 0);
+	(19, 1, '/Study-Tube/db/video/video_1737238271_x8wOqA3gBbJX1548.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737241401_465251918_943505241161902_6059523279570446445_n.jpg', 'test file modul', 0, '2025-01-21 01:59:06', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

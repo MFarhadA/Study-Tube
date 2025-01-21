@@ -118,7 +118,9 @@ $stmtCheckFavorite = $conn->prepare($sqlCheckFavorite);
 $stmtCheckFavorite->bind_param("ii", $studentID, $videoID);
 $stmtCheckFavorite->execute();
 $resultCheckFavorite = $stmtCheckFavorite->get_result();
-$isFavorite = $resultCheckFavorite->num_rows > 0;  // true jika sudah mengikuti, false jika belum
+$isFavorite = $resultCheckFavorite->num_rows > 0;  // true jika sudah favorite, false jika belum
+
+include('downloadModul.php');
 ?>
 
 <!DOCTYPE html>
@@ -186,20 +188,34 @@ $isFavorite = $resultCheckFavorite->num_rows > 0;  // true jika sudah mengikuti,
                         <div class="text-sm font-roboto text-gray-500 mb-4"><?= htmlspecialchars($row['views']); ?> views</div>
                     </div>
 
-                    <!-- Tombol Favorit -->
-                    <form action="favorite.php" method="POST" class="inline">
-                        <input type="hidden" name="videoID" value="<?= $videoID; ?>">
-                        <input type="hidden" name="studentID" value="<?= $studentID; ?>">
-                        <input type="hidden" name="action" value="<?= $isFavorite ? 'unfavorite' : 'favorite'; ?>">
-                        <button 
-                            type="submit"
-                            class="<?= $isFavorite ? 'bg-white text-[#48C774] ring-2 ring-[#48C774]' : 'bg-[#48C774] text-white' ?> font-poppins flex items-center gap-2 px-4 py-2 rounded">
-                            <svg viewBox="0,0,20,20" xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke-width="1" transform="rotate(0) matrix(1 0 0 1 0 0)">
-                                <path fill="currentColor" d="m9.653 16.915l-.005-.003l-.019-.01l-.067-.035l-.243-.135a22 22 0 0 1-3.434-2.412C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22 22 0 0 1-3.744 2.582l-.019.01l-.005.003h-.002a.74.74 0 0 1-.69.001z"></path>
-                            </svg>
-                            Favorit
-                        </button>
-                    </form>
+                    <div class = "flex flex-row space-x-3">
+                        
+                        <!-- Tombol Download Modul -->
+                        <?php if ($modulPath): ?>
+                            <a href="<?= $modulPath; ?>" download class="bg-[#48C774] ring-1 ring-[#48C774] text-white font-poppins flex items-center gap-2 px-3 py-2 rounded h-min">
+                                <svg viewBox="0,0,20,20" xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke-width="1" transform="rotate(0) matrix(1 0 0 1 0 0)">
+                                    <path fill="currentColor" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16m.75-11.25a.75.75 0 0 0-1.5 0v4.59L7.3 9.24a.75.75 0 0 0-1.1 1.02l3.25 3.5a.75.75 0 0 0 1.1 0l3.25-3.5a.75.75 0 1 0-1.1-1.02l-1.95 2.1z" clip-rule="evenodd"></path>
+                                </svg>
+                                Modul
+                            </a>
+                        <?php endif; ?>
+
+                        <!-- Tombol Favorit -->
+                        <form action="favorite.php" method="POST" class="inline">
+                            <input type="hidden" name="videoID" value="<?= $videoID; ?>">
+                            <input type="hidden" name="studentID" value="<?= $studentID; ?>">
+                            <input type="hidden" name="action" value="<?= $isFavorite ? 'unfavorite' : 'favorite'; ?>">
+                            <button 
+                                type="submit"
+                                class="<?= $isFavorite ? 'bg-white text-[#48C774] ring-2 ring-[#48C774]' : 'bg-[#48C774] text-white' ?> font-poppins flex items-center gap-2 px-4 py-2 rounded">
+                                <svg viewBox="0,0,20,20" xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke-width="1" transform="rotate(0) matrix(1 0 0 1 0 0)">
+                                    <path fill="currentColor" d="m9.653 16.915l-.005-.003l-.019-.01l-.067-.035l-.243-.135a22 22 0 0 1-3.434-2.412C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22 22 0 0 1-3.744 2.582l-.019.01l-.005.003h-.002a.74.74 0 0 1-.69.001z"></path>
+                                </svg>
+                                Favorit
+                            </button>
+                        </form>
+
+                    </div>
                 </div>
 
                 <!-- Profile Card -->
