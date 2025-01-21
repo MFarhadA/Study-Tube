@@ -1,4 +1,5 @@
 <?php
+    include 'verificationLogin.php';
     include 'dataProfil.php';
 ?>
 

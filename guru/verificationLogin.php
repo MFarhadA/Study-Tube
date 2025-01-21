@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: /Study-Tube/login/index.html");
     exit();
 }
 
@@ -11,4 +11,6 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
     header("Location: /Study-Tube/siswa/index.php");
     exit();
 }
+
+session_write_close();
 ?>
