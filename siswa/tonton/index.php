@@ -109,6 +109,16 @@ $stmtCheckFollow->bind_param("ii", $studentID, $row['teacherID']);
 $stmtCheckFollow->execute();
 $resultCheckFollow = $stmtCheckFollow->get_result();
 $isFollowing = $resultCheckFollow->num_rows > 0;  // true jika sudah mengikuti, false jika belum
+
+$sqlCheckFavorite = "
+    SELECT 1 FROM favorit
+    WHERE studentID = ? AND videoID = ?
+";
+$stmtCheckFavorite = $conn->prepare($sqlCheckFavorite);
+$stmtCheckFavorite->bind_param("ii", $studentID, $videoID);
+$stmtCheckFavorite->execute();
+$resultCheckFavorite = $stmtCheckFavorite->get_result();
+$isFavorite = $resultCheckFavorite->num_rows > 0;  // true jika sudah mengikuti, false jika belum
 ?>
 
 <!DOCTYPE html>
@@ -168,8 +178,29 @@ $isFollowing = $resultCheckFollow->num_rows > 0;  // true jika sudah mengikuti, 
                     <source src="<?php echo htmlspecialchars($videoLink); ?>" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <p class="text-lg font-poppins font-bold mb-2 text-ellipsis line-clamp-2"><?= htmlspecialchars($row['title']); ?></p>
-                <div class="text-sm font-roboto text-gray-500 mb-4"><?= htmlspecialchars($row['views']); ?> views</div>
+
+                <div class = "flex flex-row justify-between mt-3">
+
+                    <div class = "flex flex-col">
+                        <p class="text-lg font-poppins font-bold mb-2 text-ellipsis line-clamp-2"><?= htmlspecialchars($row['title']); ?></p>
+                        <div class="text-sm font-roboto text-gray-500 mb-4"><?= htmlspecialchars($row['views']); ?> views</div>
+                    </div>
+
+                    <!-- Tombol Favorit -->
+                    <form action="favorite.php" method="POST" class="inline">
+                        <input type="hidden" name="videoID" value="<?= $videoID; ?>">
+                        <input type="hidden" name="studentID" value="<?= $studentID; ?>">
+                        <input type="hidden" name="action" value="<?= $isFavorite ? 'unfavorite' : 'favorite'; ?>">
+                        <button 
+                            type="submit"
+                            class="<?= $isFavorite ? 'bg-white text-[#48C774] ring-2 ring-[#48C774]' : 'bg-[#48C774] text-white' ?> font-poppins flex items-center gap-2 px-4 py-2 rounded">
+                            <svg viewBox="0,0,20,20" xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke-width="1" transform="rotate(0) matrix(1 0 0 1 0 0)">
+                                <path fill="currentColor" d="m9.653 16.915l-.005-.003l-.019-.01l-.067-.035l-.243-.135a22 22 0 0 1-3.434-2.412C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22 22 0 0 1-3.744 2.582l-.019.01l-.005.003h-.002a.74.74 0 0 1-.69.001z"></path>
+                            </svg>
+                            Favorit
+                        </button>
+                    </form>
+                </div>
 
                 <!-- Profile Card -->
                 <div class="bg-[#48C774] text-white flex items-center justify-between p-3 rounded-lg mb-6 shadow-md w-auto mx-auto">
