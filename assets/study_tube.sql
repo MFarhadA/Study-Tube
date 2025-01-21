@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS `favorit` (
 -- Dumping data for table study_tube.favorit: ~2 rows (approximately)
 REPLACE INTO `favorit` (`studentID`, `videoID`) VALUES
 	(1, 2),
-	(1, 1);
+	(1, 19),
+	(1, 16);
 
 -- Dumping structure for table study_tube.guru
 DROP TABLE IF EXISTS `guru`;
@@ -71,11 +72,11 @@ CREATE TABLE IF NOT EXISTS `guru` (
 
 -- Dumping data for table study_tube.guru: ~5 rows (approximately)
 REPLACE INTO `guru` (`teacherID`, `schoolID`, `userID`, `followers`, `balance`) VALUES
-	(1, 1, 2, 160, 576),
-	(2, 1, 5, 303, 684),
-	(3, 1, 6, 415, 922),
-	(4, 1, 7, 265, 459),
-	(5, 1, 8, 402, 533);
+	(1, 1, 2, 4, 576),
+	(2, 1, 5, 1, 684),
+	(3, 1, 6, 1, 922),
+	(4, 1, 7, 1, 459),
+	(5, 1, 8, 0, 533);
 
 -- Dumping structure for table study_tube.ikuti
 DROP TABLE IF EXISTS `ikuti`;
@@ -90,13 +91,13 @@ CREATE TABLE IF NOT EXISTS `ikuti` (
 
 -- Dumping data for table study_tube.ikuti: ~7 rows (approximately)
 REPLACE INTO `ikuti` (`studentID`, `teacherID`) VALUES
-	(1, 3),
-	(1, 2),
-	(1, 4),
 	(2, 1),
 	(3, 1),
 	(4, 1),
-	(1, 1);
+	(1, 1),
+	(1, 2),
+	(1, 3),
+	(1, 4);
 
 -- Dumping structure for table study_tube.koin
 DROP TABLE IF EXISTS `koin`;
@@ -129,13 +130,13 @@ CREATE TABLE IF NOT EXISTS `modul` (
   CONSTRAINT `FK_modul_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.modul: ~4 rows (approximately)
+-- Dumping data for table study_tube.modul: ~5 rows (approximately)
 REPLACE INTO `modul` (`moduleID`, `teacherID`, `videoID`, `title`, `download`, `modul`) VALUES
-	(1, 1, 1, 'How to Create a Website', 93, '/Study-Tube/assets/modul_pdf.pdf'),
-	(2, 1, 2, 'Advanced PHP Techniques', 89, '/Study-Tube/assets/modul_dokumen.docx'),
-	(3, 1, 16, 'Modul untuk test', 0, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx'),
-	(16, 1, 19, 'Keamanan_Informasi_Data_Pribadi_Pada_Med', 0, '/Study-Tube/db/module/module_1737424746_Keamanan_Informasi_Data_Pribadi_Pada_Med.pdf'),
-	(17, 1, 25, 'modul_pdf', 0, '/Study-Tube/db/module/module_1737432964_modul_pdf.pdf');
+	(1, 1, 1, 'How to Create a Website', 129, '/Study-Tube/assets/modul_pdf.pdf'),
+	(2, 1, 2, 'Advanced PHP Techniques', 99, '/Study-Tube/assets/modul_dokumen.docx'),
+	(3, 1, 16, 'Modul untuk test', 9, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx'),
+	(16, 1, 19, 'Keamanan_Informasi_Data_Pribadi_Pada_Med', 5, '/Study-Tube/db/module/module_1737424746_Keamanan_Informasi_Data_Pribadi_Pada_Med.pdf'),
+	(17, 1, 25, 'modul_pdf', 4, '/Study-Tube/db/module/module_1737432964_modul_pdf.pdf');
 
 -- Dumping structure for table study_tube.rating
 DROP TABLE IF EXISTS `rating`;
@@ -239,26 +240,74 @@ CREATE TABLE IF NOT EXISTS `video` (
   CONSTRAINT `video_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.video: ~17 rows (approximately)
+-- Dumping data for table study_tube.video: ~18 rows (approximately)
 REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `views`, `upload_date`, `favorite`) VALUES
-	(1, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'How to Learn Programming', 359, '2024-09-22 20:14:00', 0),
-	(2, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 310, '2025-01-19 19:55:21', 0),
+	(1, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'How to Learn Programming', 360, '2024-09-22 20:14:00', 0),
+	(2, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 311, '2025-01-19 19:55:21', 1),
 	(3, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Python in 30 Days', 762, '2024-12-17 20:14:00', 0),
-	(4, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Understanding Machine Learning', 786, '2024-12-28 20:14:00', 0),
+	(4, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Understanding Machine Learning', 787, '2024-12-28 20:14:00', 0),
 	(5, 2, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Data Science for Beginners', 178, '2024-11-30 20:14:00', 0),
 	(6, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Exploring Artificial Intelligence', 412, '2024-10-28 20:14:00', 0),
-	(7, 3, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Learn JavaScript in a Week', 337, '2024-12-02 20:14:00', 0),
+	(7, 3, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Learn JavaScript in a Week', 338, '2024-12-02 20:14:00', 0),
 	(8, 3, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'React for Front-End Development', 800, '2024-10-26 20:14:00', 0),
 	(9, 3, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Building Mobile Apps with Flutter', 272, '2024-10-02 20:14:00', 0),
-	(10, 4, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Introduction to Game Development', 1066, '2024-12-16 20:14:00', 0),
+	(10, 4, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Introduction to Game Development', 1067, '2024-12-16 20:14:00', 0),
 	(11, 4, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Creating 3D Models in Blender', 906, '2024-10-31 20:14:00', 0),
 	(12, 4, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Animating with Unity', 727, '2024-11-29 20:14:00', 0),
 	(13, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Unreal Engine', 769, '2024-11-19 20:14:00', 0),
-	(14, 5, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Advanced Coding Techniques', 165, '2024-12-22 20:14:00', 0),
+	(14, 5, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Advanced Coding Techniques', 166, '2024-12-22 20:14:00', 0),
 	(15, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Introduction to Cloud Computing', 326, '2024-10-04 20:14:00', 0),
-	(16, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test', 0, '2025-01-18 22:11:11', 0),
-	(19, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test file modul', 0, '2025-01-21 01:59:06', 0),
-	(25, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737432964_1130469.png', 'Standard Deviation of Hawk Tuah', 0, '2025-01-21 04:16:04', 0);
+	(16, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test', 1, '2025-01-18 22:11:11', 1),
+	(19, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test file modul', 1, '2025-01-21 01:59:06', 1),
+	(25, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737432964_1130469.png', 'Standard Deviation of Hawk Tuah', 1, '2025-01-21 04:16:04', 0);
+
+-- Dumping structure for trigger study_tube.update_favorite_after_delete
+DROP TRIGGER IF EXISTS `update_favorite_after_delete`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `update_favorite_after_delete` AFTER DELETE ON `favorit` FOR EACH ROW BEGIN
+    UPDATE video
+    SET favorite = favorite - 1
+    WHERE videoID = OLD.videoID;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Dumping structure for trigger study_tube.update_favorite_after_insert
+DROP TRIGGER IF EXISTS `update_favorite_after_insert`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `update_favorite_after_insert` AFTER INSERT ON `favorit` FOR EACH ROW BEGIN
+    UPDATE video
+    SET favorite = favorite + 1
+    WHERE videoID = NEW.videoID;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Dumping structure for trigger study_tube.update_followers_after_delete
+DROP TRIGGER IF EXISTS `update_followers_after_delete`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `update_followers_after_delete` AFTER DELETE ON `ikuti` FOR EACH ROW BEGIN
+    UPDATE guru
+    SET followers = (SELECT COUNT(*) FROM ikuti WHERE teacherID = OLD.teacherID)
+    WHERE teacherID = OLD.teacherID;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Dumping structure for trigger study_tube.update_followers_after_insert
+DROP TRIGGER IF EXISTS `update_followers_after_insert`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `update_followers_after_insert` AFTER INSERT ON `ikuti` FOR EACH ROW BEGIN
+    UPDATE guru
+    SET followers = (SELECT COUNT(*) FROM ikuti WHERE teacherID = NEW.teacherID)
+    WHERE teacherID = NEW.teacherID;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
