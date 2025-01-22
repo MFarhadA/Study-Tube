@@ -1,5 +1,5 @@
 <?php
-include 'verificationLogin.php';
+include '../verificationLogin.php';
 
 session_start();
 
