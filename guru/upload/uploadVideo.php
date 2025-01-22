@@ -65,7 +65,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
     // Insert ke Tabel Video
     $sqlVideo = "INSERT INTO video (teacherID, video, thumbnail, title, views, upload_date, favorite)
                  VALUES ('$teacherID', '$videoPath', '$thumbnailPath', '$judul', '$views', '$uploadDate', 0)";
-    if ($conn->query($sqlVideo) === TRUE) {
+    $sqlNotificationVideo = "
+                    INSERT INTO notifikasi_guru (teacherID, message, upload_date)
+                    VALUES (
+                        '$teacherID',
+                        CONCAT((SELECT u.name 
+                                        FROM user u 
+                                        JOIN guru g ON u.userID = g.userID 
+                                        WHERE g.teacherID = '$teacherID'), 
+                            ' telah mengunggah video baru \"$judul\"'),
+                        '$uploadDate'
+                    )
+                ";
+
+
+    if ($conn->query($sqlVideo) === TRUE && $conn->query($sqlNotificationVideo) === TRUE) {
         $videoID = $conn->insert_id;
 
         // Upload Modul (opsional)
@@ -80,6 +94,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
                 // Insert ke Tabel Modul
                 $sqlModul = "INSERT INTO modul (teacherID, videoID, title, download, modul)
                              VALUES ('$teacherID', '$videoID', '$moduleTitle', 0, '$modulePath')";
+
+                $sqlNotificationModul = "
+                    INSERT INTO notifikasi_guru (teacherID, message, upload_date)
+                    VALUES (
+                        '$teacherID',
+                        CONCAT((SELECT u.name 
+                                        FROM user u 
+                                        JOIN guru g ON u.userID = g.userID 
+                                        WHERE g.teacherID = '$teacherID'), 
+                            ' telah mengunggah modul baru di video \"$judul\"'),
+                        '$uploadDate'
+                    )
+                ";
+                
+                $conn->query($sqlNotificationModul);
                 $conn->query($sqlModul);
             } else {
                 die("Thumbnail tidak valid. Pastikan formatnya JPEG, PNG, atau GIF dengan ukuran maksimal 4MB.");
