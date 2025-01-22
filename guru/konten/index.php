@@ -170,7 +170,6 @@
     
     </div>
 
-    
     <script src="/Study-Tube/guru/sidebar/sidebar.js"></script>
     <script src="script.js"></script>
 
