@@ -49,11 +49,12 @@ CREATE TABLE IF NOT EXISTS `favorit` (
   CONSTRAINT `FK_favorit_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table study_tube.favorit: ~2 rows (approximately)
+-- Dumping data for table study_tube.favorit: ~3 rows (approximately)
 REPLACE INTO `favorit` (`studentID`, `videoID`) VALUES
 	(1, 2),
 	(1, 19),
-	(1, 16);
+	(1, 16),
+	(1, 11);
 
 -- Dumping structure for table study_tube.guru
 DROP TABLE IF EXISTS `guru`;
@@ -133,10 +134,25 @@ CREATE TABLE IF NOT EXISTS `modul` (
 -- Dumping data for table study_tube.modul: ~5 rows (approximately)
 REPLACE INTO `modul` (`moduleID`, `teacherID`, `videoID`, `title`, `download`, `modul`) VALUES
 	(1, 1, 1, 'How to Create a Website', 129, '/Study-Tube/assets/modul_pdf.pdf'),
-	(2, 1, 2, 'Advanced PHP Techniques', 99, '/Study-Tube/assets/modul_dokumen.docx'),
-	(3, 1, 16, 'Modul untuk test', 9, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx'),
+	(2, 1, 2, 'Advanced PHP Techniques', 102, '/Study-Tube/assets/modul_dokumen.docx'),
+	(3, 1, 16, 'Modul untuk test', 10, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx'),
 	(16, 1, 19, 'Keamanan_Informasi_Data_Pribadi_Pada_Med', 5, '/Study-Tube/db/module/module_1737424746_Keamanan_Informasi_Data_Pribadi_Pada_Med.pdf'),
 	(17, 1, 25, 'modul_pdf', 4, '/Study-Tube/db/module/module_1737432964_modul_pdf.pdf');
+
+-- Dumping structure for table study_tube.notifikasi
+DROP TABLE IF EXISTS `notifikasi`;
+CREATE TABLE IF NOT EXISTS `notifikasi` (
+  `notificationID` int NOT NULL AUTO_INCREMENT,
+  `userID` int NOT NULL,
+  `message` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` enum('unread','read') COLLATE utf8mb4_general_ci DEFAULT 'unread',
+  PRIMARY KEY (`notificationID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `notifikasi_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table study_tube.notifikasi: ~0 rows (approximately)
 
 -- Dumping structure for table study_tube.rating
 DROP TABLE IF EXISTS `rating`;
@@ -188,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `siswa` (
   CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`schoolID`) REFERENCES `sekolah` (`schoolID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.siswa: ~0 rows (approximately)
+-- Dumping data for table study_tube.siswa: ~6 rows (approximately)
 REPLACE INTO `siswa` (`studentID`, `schoolID`, `userID`, `balance`) VALUES
 	(1, 1, 1, 70),
 	(2, 1, 9, 347),
@@ -209,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.user: ~0 rows (approximately)
+-- Dumping data for table study_tube.user: ~12 rows (approximately)
 REPLACE INTO `user` (`userID`, `email`, `password`, `name`, `profile_photo`, `role`) VALUES
 	(1, 'siswa@gmail.com', '2020', 'MFarhadA', '/Study-Tube/db/profile_photo/677a63b0ab1a7.jpg', 1),
 	(2, 'guru', '2020', 'Guru Ajil', '/Study-Tube/db/profile_photo/677bcefc7e164.jpg', 2),
@@ -243,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `video` (
 -- Dumping data for table study_tube.video: ~18 rows (approximately)
 REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `views`, `upload_date`, `favorite`) VALUES
 	(1, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'How to Learn Programming', 360, '2024-09-22 20:14:00', 0),
-	(2, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 311, '2025-01-19 19:55:21', 1),
+	(2, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 313, '2025-01-19 19:55:21', 1),
 	(3, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Python in 30 Days', 762, '2024-12-17 20:14:00', 0),
 	(4, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Understanding Machine Learning', 787, '2024-12-28 20:14:00', 0),
 	(5, 2, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Data Science for Beginners', 178, '2024-11-30 20:14:00', 0),
@@ -252,12 +268,12 @@ REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `vi
 	(8, 3, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'React for Front-End Development', 800, '2024-10-26 20:14:00', 0),
 	(9, 3, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Building Mobile Apps with Flutter', 272, '2024-10-02 20:14:00', 0),
 	(10, 4, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Introduction to Game Development', 1067, '2024-12-16 20:14:00', 0),
-	(11, 4, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Creating 3D Models in Blender', 906, '2024-10-31 20:14:00', 0),
+	(11, 4, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Creating 3D Models in Blender', 907, '2024-10-31 20:14:00', 1),
 	(12, 4, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Animating with Unity', 727, '2024-11-29 20:14:00', 0),
 	(13, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Unreal Engine', 769, '2024-11-19 20:14:00', 0),
 	(14, 5, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Advanced Coding Techniques', 166, '2024-12-22 20:14:00', 0),
 	(15, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Introduction to Cloud Computing', 326, '2024-10-04 20:14:00', 0),
-	(16, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test', 1, '2025-01-18 22:11:11', 1),
+	(16, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test', 2, '2025-01-18 22:11:11', 1),
 	(19, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test file modul', 1, '2025-01-21 01:59:06', 1),
 	(25, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737432964_1130469.png', 'Standard Deviation of Hawk Tuah', 1, '2025-01-21 04:16:04', 0);
 
