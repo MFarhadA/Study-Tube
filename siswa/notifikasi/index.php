@@ -1,5 +1,6 @@
 <?php
 include '../verificationLogin.php';
+include 'listNotifikasi.php';
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +38,22 @@ include '../verificationLogin.php';
         <div class="container mt-12 p-3">
             <div class="col-rounded-shadow mx-auto p-2 px-3 max-h-[100vh]">
                 <div class="font-poppins text-xl mt-2 mb-2 mx-auto">Notifikasi</div>
-                <div id="notification" class="overflow-y-auto p-1 px-1 space-y-2 max-h-[80vh]"></div>
+                <div id="notification" class="overflow-y-auto p-1 px-1 space-y-2 max-h-[80vh]">
+                    <?php if ($resultnotifikasi && $resultnotifikasi->num_rows > 0): ?>
+                        <?php while ($notifikasi = $resultnotifikasi->fetch_assoc()): ?>
+                            <div class="flex rounded-lg ring-1 ring-gray-200 space-x-5 p-2 items-center">
+                                <div class="flex-shrink-0 overflow-hidden w-[60px] h-[60px] rounded-full bg-white items-center">
+                                    <div class="mx-auto">
+                                        <img src="<?php echo $notifikasi['profile_photo']; ?>" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+                                <h1 class="font-roboto">
+                                    <span class="font-normal"><?php echo $notifikasi['message']; ?></span>
+                                </h1>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     
@@ -45,7 +61,6 @@ include '../verificationLogin.php';
 
     
     <script src="/Study-Tube/siswa/sidebar/sidebar.js"></script>
-    <script src="script.js"></script>
 
 </body>
 </html>

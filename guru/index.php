@@ -206,11 +206,9 @@
                                         <div class="flex flex-1 justify-between items-center mt-1">
                                             <div>
                                                 <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Unduhan</h1>
-                                                <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">Koin</h1>
                                             </div>
                                             <div class="text-right">
                                                 <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden"><?= htmlspecialchars($modul['download']); ?></h1>
-                                                <h1 class="font-roboto font-normal text-black text-sm truncate overflow-hidden">1</h1>
                                             </div>
                                         </div>
                                     </div>

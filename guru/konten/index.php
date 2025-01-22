@@ -112,7 +112,7 @@
                                         <th class="p-2 text-left w-[140px]">Modul</th>
                                         <th class="p-2 text-left">Judul</th>
                                         <th class="p-2 text-left w-[130px] hidden">Status</th>
-                                        <th class="p-2 text-left w-[130px]">Views</th>
+                                        <th class="p-2 text-left w-[130px]">Unduhan</th>
                                     </tr>
                                 </thead>
                             </table>

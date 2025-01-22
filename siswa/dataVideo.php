@@ -22,8 +22,8 @@ $sql = "
             v.title, 
             v.thumbnail, 
             v.video, 
-            v.views, 
-            u.name AS teacher_name, 
+            v.views,
+            u.name AS teacher_name,
             u.profile_photo AS teacher_profile_photo
         FROM 
             video v
@@ -31,6 +31,7 @@ $sql = "
             guru g ON v.teacherID = g.teacherID
         JOIN
             user u ON g.userID = u.userID
+        ORDER BY v.upload_date DESC
     ";
 
 // Eksekusi query
