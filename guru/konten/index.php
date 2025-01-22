@@ -58,7 +58,7 @@
                                     <tr>
                                         <th class="p-2 text-left w-[140px]">Thumbnail</th>
                                         <th class="p-2 text-left">Judul</th>
-                                        <th class="p-2 text-left w-[130px]">Status</th>
+                                        <th class="p-2 text-left w-[130px] hidden">Status</th>
                                         <th class="p-2 text-left w-[120px]">Views</th>
                                         <th class="p-2 text-left w-[130px]">Favorit</th>
                                     </tr>
@@ -82,7 +82,7 @@
                                                             <?= htmlspecialchars($video['title']); ?>
                                                         </div>
                                                     </td>
-                                                    <td class="p-2 font-poppins text-[#40BA6A] w-[150px] text-ellipsis">Diterima</td>
+                                                    <td class="p-2 font-poppins text-[#40BA6A] w-[150px] text-ellipsis hidden">Diterima</td>
                                                     <td class="p-2 text-black w-[130px] text-ellipsis"><?= htmlspecialchars($video['views']); ?></td>
                                                     <td class="p-2 text-black w-[100px] text-ellipsis"><?= htmlspecialchars($video['favorite']); ?></td>
                                                 </tr>
@@ -111,7 +111,7 @@
                                     <tr>
                                         <th class="p-2 text-left w-[140px]">Modul</th>
                                         <th class="p-2 text-left">Judul</th>
-                                        <th class="p-2 text-left w-[130px]">Status</th>
+                                        <th class="p-2 text-left w-[130px] hidden">Status</th>
                                         <th class="p-2 text-left w-[130px]">Views</th>
                                     </tr>
                                 </thead>
@@ -150,7 +150,7 @@
                                                             <?= htmlspecialchars($modul['title']); ?>
                                                         </div>
                                                     </td>
-                                                    <td class="p-2 font-poppins text-[#40BA6A] w-[150px] text-ellipsis">Diterima</td>
+                                                    <td class="p-2 font-poppins text-[#40BA6A] w-[150px] text-ellipsis hidden">Diterima</td>
                                                     <td class="p-2 text-black w-[110px] text-ellipsis"><?= htmlspecialchars($modul['download']); ?></td>
                                                 </tr>
                                             <?php endwhile; ?>
