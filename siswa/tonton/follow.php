@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// Atur timezone ke GMT+7
+date_default_timezone_set('Asia/Jakarta');
+
 // Koneksi database
 $conn = new mysqli("localhost", "root", "", "study_tube");
 if ($conn->connect_error) {
@@ -12,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['teacherID']) && isset
     $teacherID = intval($_POST['teacherID']);
     $studentID = intval($_POST['studentID']);
     $action = $_POST['action'];
+
+    $uploadDate = date('Y-m-d H:i:s');
 
     if ($action === 'follow') {
         // Logika untuk FOLLOW
@@ -27,10 +32,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['teacherID']) && isset
             $stmtFollow = $conn->prepare($sqlFollow);
             $stmtFollow->bind_param("ii", $studentID, $teacherID);
 
+            $sqlNotification = "INSERT INTO notifikasi_siswa (studentID, message, upload_date)
+                    VALUES (?, ?, ?)";
+
+            // Ambil nama siswa dari database
+            $sqlGetName = "SELECT u.name 
+                        FROM user u 
+                        JOIN siswa s ON u.userID = s.userID 
+                        WHERE s.studentID = ?";
+            $stmtGetName = $conn->prepare($sqlGetName);
+            $stmtGetName->bind_param("i", $studentID);
+            $stmtGetName->execute();
+            $resultGetName = $stmtGetName->get_result();
+            $rowGetName = $resultGetName->fetch_assoc();
+            $studentName = $rowGetName['name'];
+
+            // Buat pesan notifikasi
+            $message = "$studentName telah mengikuti anda";
+
+            // Eksekusi query notifikasi
+            $stmtNotification = $conn->prepare($sqlNotification);
+            $stmtNotification->bind_param("iss", $studentID, $message, $uploadDate);
+
             if ($stmtFollow->execute()) {
-                $_SESSION['message'] = "Berhasil mengikuti.";
+                if ($stmtNotification->execute()) {
+                    $_SESSION['message'] = "Berhasil favorit.";
+                } else {
+                    $_SESSION['message'] = "Gagal menyimpan notifikasi.";
+                }
             } else {
-                $_SESSION['message'] = "Gagal menyimpan data.";
+                $_SESSION['message'] = "Gagal menyimpan data favorit.";
             }
         } else {
             $_SESSION['message'] = "Sudah mengikuti.";

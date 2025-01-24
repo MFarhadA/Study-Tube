@@ -1,5 +1,5 @@
 <?php
-include 'datastudentID.php';
+include 'datateacherID.php';
 
 // Koneksi ke database
 $servername = "localhost";
@@ -14,37 +14,36 @@ if ($conn->connect_error) {
 }
 
 // Ambil semua teacherID yang diikuti oleh studentID
-$sqlikuti = "SELECT teacherID FROM ikuti WHERE studentID = ?";
-$stmt = $conn->prepare($sqlikuti);
-$stmt->bind_param("i", $studentID);
+$sqlvideoID = "SELECT videoID FROM video WHERE teacherID = ?";
+$stmt = $conn->prepare($sqlvideoID);
+$stmt->bind_param("i", $teacherID);
 $stmt->execute();
-$resultikuti = $stmt->get_result();
+$resultvideoID = $stmt->get_result();
 
-$teacherIDs = [];
-while ($row = $resultikuti->fetch_assoc()) {
-    $teacherIDs[] = $row['teacherID']; // Simpan teacherID dalam array
+$videoIDs = [];
+while ($row = $resultvideoID->fetch_assoc()) {
+    $videoIDs[] = $row['videoID']; // Simpan videoID dalam array
 }
 $stmt->close();
 
-if (!empty($teacherIDs)) {
+if (!empty($videoIDs)) {
     // Buat string untuk klausa IN dalam query SQL
-    $placeholders = implode(',', array_fill(0, count($teacherIDs), '?'));
+    $placeholders = implode(',', array_fill(0, count($videoIDs), '?'));
 
     // Ambil notifikasi berdasarkan teacherID
     $sqlnotifikasi = "SELECT
-                    n.videoID,
                     u.profile_photo,
                     n.message,
                     n.upload_date
-                      FROM notifikasi_guru n
-                      JOIN guru g ON g.teacherID = n.teacherID
-                      JOIN user u ON u.userID = g.userID
-                      WHERE n.teacherID IN ($placeholders)
+                      FROM notifikasi_siswa n
+                      JOIN siswa s ON s.studentID = n.studentID
+                      JOIN user u ON u.userID = s.userID
+                      WHERE n.studentID IN ($placeholders)
                       ORDER BY upload_date DESC";
     
     $stmt = $conn->prepare($sqlnotifikasi);
     // Bind parameter secara dinamis
-    $stmt->bind_param(str_repeat('i', count($teacherIDs)), ...$teacherIDs);
+    $stmt->bind_param(str_repeat('i', count($videoIDs)), ...$videoIDs);
     $stmt->execute();
     $resultnotifikasi = $stmt->get_result();
 

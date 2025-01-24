@@ -4,6 +4,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Atur timezone ke GMT+7
+date_default_timezone_set('Asia/Jakarta');
+
 include 'datateacherID.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
@@ -65,21 +68,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
     // Insert ke Tabel Video
     $sqlVideo = "INSERT INTO video (teacherID, video, thumbnail, title, views, upload_date, favorite)
                  VALUES ('$teacherID', '$videoPath', '$thumbnailPath', '$judul', '$views', '$uploadDate', 0)";
-    $sqlNotificationVideo = "
-                    INSERT INTO notifikasi_guru (teacherID, message, upload_date)
-                    VALUES (
-                        '$teacherID',
-                        CONCAT((SELECT u.name 
-                                        FROM user u 
-                                        JOIN guru g ON u.userID = g.userID 
-                                        WHERE g.teacherID = '$teacherID'), 
-                            ' telah mengunggah video baru \"$judul\"'),
-                        '$uploadDate'
-                    )
-                ";
+
 
     if ($conn->query($sqlVideo) === TRUE) {
         $videoID = $conn->insert_id;
+        $sqlNotificationVideo = "
+                INSERT INTO notifikasi_guru (teacherID, videoID, message, upload_date)
+                VALUES (
+                    '$teacherID',
+                    '$videoID',
+                    CONCAT((SELECT u.name 
+                                    FROM user u 
+                                    JOIN guru g ON u.userID = g.userID 
+                                    WHERE g.teacherID = '$teacherID'), 
+                        ' telah mengunggah video baru \"$judul\"'),
+                    '$uploadDate'
+                )
+            ";
         
         if  ($conn->query($sqlNotificationVideo) === TRUE) {
             
@@ -97,9 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
                                 VALUES ('$teacherID', '$videoID', '$moduleTitle', 0, '$modulePath')";
 
                     $sqlNotificationModul = "
-                        INSERT INTO notifikasi_guru (teacherID, message, upload_date)
+                        INSERT INTO notifikasi_guru (teacherID, videoID, message, upload_date)
                         VALUES (
                             '$teacherID',
+                            '$videoID',
                             CONCAT((SELECT u.name 
                                             FROM user u 
                                             JOIN guru g ON u.userID = g.userID 

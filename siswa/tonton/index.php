@@ -224,6 +224,7 @@ include('downloadModul.php');
                         <form action="favorite.php" method="POST" class="inline">
                             <input type="hidden" name="videoID" value="<?= $videoID; ?>">
                             <input type="hidden" name="studentID" value="<?= $studentID; ?>">
+                            <input type="hidden" name="title" value="<?= $row['title']; ?>">
                             <input type="hidden" name="action" value="<?= $isFavorite ? 'unfavorite' : 'favorite'; ?>">
                             <button 
                                 type="submit"
