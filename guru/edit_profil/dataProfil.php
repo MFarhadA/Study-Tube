@@ -15,12 +15,14 @@ if ($conn->connect_error) {
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT u.name AS nama_guru, u.email, u.profile_photo, us.name AS nama_sekolah, u.password
-        FROM user u
-        JOIN guru g ON u.userID = g.userID
-        JOIN sekolah s ON g.schoolID = s.schoolID
-        JOIN user us ON s.userID = us.userID
-        WHERE u.userID = ?";
+$sql = "SELECT
+        name AS nama_guru,
+        email,
+        profile_photo,
+        school AS nama_sekolah,
+        password
+        FROM user
+        WHERE userID = ?";
 
 $stmt = $conn->prepare($sql);
 

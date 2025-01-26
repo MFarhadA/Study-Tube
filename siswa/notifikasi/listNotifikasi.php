@@ -26,6 +26,8 @@ while ($row = $resultikuti->fetch_assoc()) {
 }
 $stmt->close();
 
+$resultnotifikasi = null;
+
 if (!empty($teacherIDs)) {
     // Buat string untuk klausa IN dalam query SQL
     $placeholders = implode(',', array_fill(0, count($teacherIDs), '?'));
@@ -49,8 +51,6 @@ if (!empty($teacherIDs)) {
     $resultnotifikasi = $stmt->get_result();
 
     $stmt->close();
-} else {
-    echo "Tidak ada notifikasi yang tersedia.";
 }
 
 $conn->close();

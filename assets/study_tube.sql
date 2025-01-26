@@ -45,40 +45,41 @@ CREATE TABLE IF NOT EXISTS `favorit` (
   `videoID` int NOT NULL,
   KEY `FK_favorit_siswa` (`studentID`),
   KEY `FK_favorit_video` (`videoID`),
-  CONSTRAINT `FK_favorit_siswa` FOREIGN KEY (`studentID`) REFERENCES `siswa` (`schoolID`),
+  CONSTRAINT `FK_favorit_siswa` FOREIGN KEY (`studentID`) REFERENCES `siswa` (`studentID`),
   CONSTRAINT `FK_favorit_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table study_tube.favorit: ~4 rows (approximately)
+-- Dumping data for table study_tube.favorit: ~5 rows (approximately)
 REPLACE INTO `favorit` (`studentID`, `videoID`) VALUES
-	(1, 2),
-	(1, 19),
 	(1, 16),
 	(1, 11),
-	(1, 39);
+	(1, 39),
+	(1, 19),
+	(1, 2),
+	(1, 43),
+	(7, 25),
+	(7, 4);
 
 -- Dumping structure for table study_tube.guru
 DROP TABLE IF EXISTS `guru`;
 CREATE TABLE IF NOT EXISTS `guru` (
   `teacherID` int NOT NULL AUTO_INCREMENT,
-  `schoolID` int NOT NULL,
   `userID` int NOT NULL,
   `followers` int NOT NULL,
-  `balance` int NOT NULL,
   PRIMARY KEY (`teacherID`),
-  KEY `schoolID` (`schoolID`,`userID`),
+  KEY `schoolID` (`userID`),
   KEY `userID` (`userID`),
-  CONSTRAINT `guru_ibfk_1` FOREIGN KEY (`schoolID`) REFERENCES `sekolah` (`schoolID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `guru_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `guru_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.guru: ~5 rows (approximately)
-REPLACE INTO `guru` (`teacherID`, `schoolID`, `userID`, `followers`, `balance`) VALUES
-	(1, 1, 2, 4, 576),
-	(2, 1, 5, 1, 684),
-	(3, 1, 6, 1, 922),
-	(4, 1, 7, 1, 459),
-	(5, 1, 8, 0, 533);
+REPLACE INTO `guru` (`teacherID`, `userID`, `followers`) VALUES
+	(1, 2, 4),
+	(2, 5, 2),
+	(3, 6, 1),
+	(4, 7, 1),
+	(5, 8, 0),
+	(6, 14, 0);
 
 -- Dumping structure for table study_tube.ikuti
 DROP TABLE IF EXISTS `ikuti`;
@@ -96,10 +97,11 @@ REPLACE INTO `ikuti` (`studentID`, `teacherID`) VALUES
 	(2, 1),
 	(3, 1),
 	(4, 1),
-	(1, 1),
 	(1, 2),
 	(1, 3),
-	(1, 4);
+	(1, 4),
+	(1, 1),
+	(7, 2);
 
 -- Dumping structure for table study_tube.koin
 DROP TABLE IF EXISTS `koin`;
@@ -130,45 +132,54 @@ CREATE TABLE IF NOT EXISTS `modul` (
   KEY `FK_modul_video` (`videoID`),
   CONSTRAINT `FK_modul_guru` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`),
   CONSTRAINT `FK_modul_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.modul: ~5 rows (approximately)
+-- Dumping data for table study_tube.modul: ~6 rows (approximately)
 REPLACE INTO `modul` (`moduleID`, `teacherID`, `videoID`, `title`, `download`, `modul`) VALUES
 	(1, 1, 1, 'How to Create a Website', 129, '/Study-Tube/assets/modul_pdf.pdf'),
-	(2, 1, 2, 'Advanced PHP Techniques', 102, '/Study-Tube/assets/modul_dokumen.docx'),
+	(2, 1, 2, 'Advanced PHP Techniques', 105, '/Study-Tube/assets/modul_dokumen.docx'),
 	(3, 1, 16, 'Modul untuk test', 10, 'module_1737324809_Tata Bahasa Bebas Kontek Metode Chomsky.pptx'),
-	(16, 1, 19, 'Keamanan_Informasi_Data_Pribadi_Pada_Med', 5, '/Study-Tube/db/module/module_1737424746_Keamanan_Informasi_Data_Pribadi_Pada_Med.pdf'),
-	(17, 1, 25, 'modul_pdf', 4, '/Study-Tube/db/module/module_1737432964_modul_pdf.pdf'),
-	(18, 1, 35, 'admin-dinasti,+9.++SHINTA+NURUL', 0, '/Study-Tube/db/module/module_1737557078_admin-dinasti,+9.++SHINTA+NURUL.pdf'),
-	(21, 1, 38, 'QUIZ PERTEMUAN 9', 0, '/Study-Tube/db/module/module_1737558676_QUIZ PERTEMUAN 9.pdf'),
-	(22, 2, 39, 'BDT 5-6', 2, '/Study-Tube/db/module/module_1737575805_BDT 5-6.pptx');
+	(16, 1, 19, 'Keamanan_Informasi_Data_Pribadi_Pada_Med', 11, '/Study-Tube/db/module/module_1737424746_Keamanan_Informasi_Data_Pribadi_Pada_Med.pdf'),
+	(17, 1, 25, 'modul_pdf', 6, '/Study-Tube/db/module/module_1737432964_modul_pdf.pdf'),
+	(22, 2, 39, 'BDT 5-6', 2, '/Study-Tube/db/module/module_1737575805_BDT 5-6.pptx'),
+	(23, 1, 43, 'Keamanan_Informasi_Data_Pribadi_Pada_Med', 12, '/Study-Tube/db/module/module_1737676445_Keamanan_Informasi_Data_Pribadi_Pada_Med.pdf');
 
 -- Dumping structure for table study_tube.notifikasi_guru
 DROP TABLE IF EXISTS `notifikasi_guru`;
 CREATE TABLE IF NOT EXISTS `notifikasi_guru` (
   `notificationID` int NOT NULL AUTO_INCREMENT,
   `teacherID` int NOT NULL,
+  `videoID` int NOT NULL,
   `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `upload_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('unread','read') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'unread',
   PRIMARY KEY (`notificationID`),
   KEY `userID` (`teacherID`) USING BTREE,
-  CONSTRAINT `FK_notifikasi_guru_guru` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `FK_notifikasi_guru_video` (`videoID`),
+  CONSTRAINT `FK_notifikasi_guru_guru` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`),
+  CONSTRAINT `FK_notifikasi_guru_video` FOREIGN KEY (`videoID`) REFERENCES `video` (`videoID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table study_tube.notifikasi_guru: ~0 rows (approximately)
-REPLACE INTO `notifikasi_guru` (`notificationID`, `teacherID`, `message`, `upload_date`, `status`) VALUES
-	(1, 1, 'Guru Guru Ajil telah mengunggah video baru "test notif"', '2025-01-22 14:39:36', 'unread'),
-	(2, 1, 'Guru Ajil telah mengunggah video baru "test notif m"', '2025-01-22 14:44:38', 'unread'),
-	(3, 1, 'Guru Ajil telah mengunggah modul baru di video "test notif m"', '2025-01-22 14:44:38', 'unread'),
-	(4, 1, 'Guru Ajil telah mengunggah video baru "test notif mmm"', '2025-01-22 15:06:45', 'unread'),
-	(5, 1, 'Guru Ajil telah mengunggah modul baru di video "test notif mmm"', '2025-01-22 15:06:45', 'unread'),
-	(6, 1, 'Guru Ajil telah mengunggah video baru "test notif mmm"', '2025-01-22 15:08:01', 'unread'),
-	(7, 1, 'Guru Ajil telah mengunggah modul baru di video "test notif mmm"', '2025-01-22 15:08:01', 'unread'),
-	(8, 1, 'Guru Ajil telah mengunggah video baru "test notif mmm"', '2025-01-22 15:11:16', 'unread'),
-	(9, 1, 'Guru Ajil telah mengunggah modul baru di video "test notif mmm"', '2025-01-22 15:11:16', 'unread'),
-	(10, 2, 'Muhammad Farhad Ajilla telah mengunggah video baru "halo tuah"', '2025-01-22 19:56:45', 'unread'),
-	(11, 2, 'Muhammad Farhad Ajilla telah mengunggah modul baru di video "halo tuah"', '2025-01-22 19:56:45', 'unread');
+
+-- Dumping structure for table study_tube.notifikasi_siswa
+DROP TABLE IF EXISTS `notifikasi_siswa`;
+CREATE TABLE IF NOT EXISTS `notifikasi_siswa` (
+  `notificationID_s` int NOT NULL AUTO_INCREMENT,
+  `studentID` int NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `upload_date` datetime NOT NULL,
+  `status` enum('unread','read') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'unread',
+  PRIMARY KEY (`notificationID_s`),
+  KEY `FK_notifikasi_siswa_siswa` (`studentID`),
+  CONSTRAINT `FK_notifikasi_siswa_siswa` FOREIGN KEY (`studentID`) REFERENCES `siswa` (`studentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table study_tube.notifikasi_siswa: ~0 rows (approximately)
+REPLACE INTO `notifikasi_siswa` (`notificationID_s`, `studentID`, `message`, `upload_date`, `status`) VALUES
+	(1, 7, 'test Siswa telah memfavoritkan video anda "Standard Deviation of Hawk Tuah"', '2025-01-26 21:38:13', 'unread'),
+	(2, 7, 'test Siswa telah memfavoritkan video anda "Understanding Machine Learning"', '2025-01-26 21:38:28', 'unread'),
+	(3, 7, 'test Siswa telah mengikuti anda', '2025-01-26 21:38:30', 'unread');
 
 -- Dumping structure for table study_tube.rating
 DROP TABLE IF EXISTS `rating`;
@@ -210,24 +221,22 @@ REPLACE INTO `sekolah` (`schoolID`, `userID`, `school_address`) VALUES
 DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE IF NOT EXISTS `siswa` (
   `studentID` int NOT NULL AUTO_INCREMENT,
-  `schoolID` int NOT NULL,
   `userID` int NOT NULL,
-  `balance` int NOT NULL,
   PRIMARY KEY (`studentID`),
-  KEY `schoolID` (`schoolID`,`userID`),
+  KEY `schoolID` (`userID`),
   KEY `userID` (`userID`),
-  CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`schoolID`) REFERENCES `sekolah` (`schoolID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.siswa: ~0 rows (approximately)
-REPLACE INTO `siswa` (`studentID`, `schoolID`, `userID`, `balance`) VALUES
-	(1, 1, 1, 70),
-	(2, 1, 9, 347),
-	(3, 1, 10, 231),
-	(4, 1, 11, 816),
-	(5, 1, 12, 883),
-	(6, 1, 13, 268);
+-- Dumping data for table study_tube.siswa: ~6 rows (approximately)
+REPLACE INTO `siswa` (`studentID`, `userID`) VALUES
+	(1, 1),
+	(2, 9),
+	(3, 10),
+	(4, 11),
+	(5, 12),
+	(6, 13),
+	(7, 15);
 
 -- Dumping structure for table study_tube.user
 DROP TABLE IF EXISTS `user`;
@@ -236,25 +245,28 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `school` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `profile_photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role` int NOT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.user: ~0 rows (approximately)
-REPLACE INTO `user` (`userID`, `email`, `password`, `name`, `profile_photo`, `role`) VALUES
-	(1, 'siswa@gmail.com', '2020', 'MFarhadA', '/Study-Tube/db/profile_photo/677a63b0ab1a7.jpg', 1),
-	(2, 'guru', '2020', 'Guru Ajil', '/Study-Tube/db/profile_photo/677bcefc7e164.jpg', 2),
-	(3, 'sekolah', '2020', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 3),
-	(5, 'farhad.ajilla@gmail.com', '2020', 'Muhammad Farhad Ajilla', '/Study-Tube/assets/foto_profil.jpg', 2),
-	(6, 'sarah.annisa@yahoo.com', '2020', 'Sarah Annisa', '/Study-Tube/assets/foto_profil.jpg', 2),
-	(7, 'john.doe@example.com', '2020', 'John Doe', '/Study-Tube/assets/foto_profil.jpg', 2),
-	(8, 'jane.smith@outlook.com', '2020', 'Jane Smith Stone Johnson', '/Study-Tube/assets/foto_profil.jpg', 2),
-	(9, 'murid1@example.com', '2020', 'Murid Satu', '/Study-Tube/assets/foto_profil.jpg', 1),
-	(10, 'murid2@example.com', '2020', 'Murid Dua', '/Study-Tube/assets/foto_profil.jpg', 1),
-	(11, 'murid3@example.com', '2020', 'Murid Tiga', '/Study-Tube/assets/foto_profil.jpg', 1),
-	(12, 'murid4@example.com', '2020', 'Murid Empat', '/Study-Tube/assets/foto_profil.jpg', 1),
-	(13, 'murid5@example.com', '2020', 'Murid Lima', '/Study-Tube/assets/foto_profil.jpg', 1);
+-- Dumping data for table study_tube.user: ~14 rows (approximately)
+REPLACE INTO `user` (`userID`, `email`, `password`, `name`, `school`, `profile_photo`, `role`) VALUES
+	(1, 'siswa@gmail.com', '2020', 'MFarhadA', 'Manbaul Huda', '/Study-Tube/db/profile_photo/6792e2a2348f3.jpg', 1),
+	(2, 'guru', '2020', 'Guru Ajil', 'Manbaul Huda', '/Study-Tube/db/profile_photo/677bcefc7e164.jpg', 2),
+	(3, 'sekolah', '2020', 'Manbaul Huda', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 3),
+	(5, 'farhad.ajilla@gmail.com', '2020', 'Muhammad Farhad Ajilla', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(6, 'sarah.annisa@yahoo.com', '2020', 'Sarah Annisa', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(7, 'john.doe@example.com', '2020', 'John Doe', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(8, 'jane.smith@outlook.com', '2020', 'Jane Smith Stone Johnson', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(9, 'murid1@example.com', '2020', 'Murid Satu', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(10, 'murid2@example.com', '2020', 'Murid Dua', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(11, 'murid3@example.com', '2020', 'Murid Tiga', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(12, 'murid4@example.com', '2020', 'Murid Empat', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(13, 'murid5@example.com', '2020', 'Murid Lima', 'Manbaul Huda', '/Study-Tube/assets/foto_profil.jpg', 1),
+	(14, 'gurug', '2020', 'test Guru', 'Manbaul Test', '/Study-Tube/assets/foto_profil.jpg', 2),
+	(15, 'siswoo', '2020', 'test Siswa', 'Test Manbaul', '/Study-Tube/assets/foto_profil.jpg', 1);
 
 -- Dumping structure for table study_tube.video
 DROP TABLE IF EXISTS `video`;
@@ -270,14 +282,14 @@ CREATE TABLE IF NOT EXISTS `video` (
   PRIMARY KEY (`videoID`),
   KEY `teacherID` (`teacherID`),
   CONSTRAINT `video_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `guru` (`teacherID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table study_tube.video: ~0 rows (approximately)
+-- Dumping data for table study_tube.video: ~19 rows (approximately)
 REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `views`, `upload_date`, `favorite`) VALUES
 	(1, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'How to Learn Programming', 360, '2024-09-22 20:14:00', 0),
-	(2, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 313, '2025-01-19 19:55:21', 1),
+	(2, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', '10 Tips for Effective Studying test 2', 314, '2025-01-19 19:55:21', 1),
 	(3, 1, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Mastering Python in 30 Days', 762, '2024-12-17 20:14:00', 0),
-	(4, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Understanding Machine Learning', 787, '2024-12-28 20:14:00', 0),
+	(4, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Understanding Machine Learning', 788, '2024-12-28 20:14:00', 1),
 	(5, 2, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Data Science for Beginners', 178, '2024-11-30 20:14:00', 0),
 	(6, 2, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Exploring Artificial Intelligence', 412, '2024-10-28 20:14:00', 0),
 	(7, 3, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Learn JavaScript in a Week', 338, '2024-12-02 20:14:00', 0),
@@ -290,12 +302,10 @@ REPLACE INTO `video` (`videoID`, `teacherID`, `video`, `thumbnail`, `title`, `vi
 	(14, 5, '/Study-Tube/assets/video.mp4', '/Study-Tube/assets/video_thumbnail.jpg', 'Advanced Coding Techniques', 166, '2024-12-22 20:14:00', 0),
 	(15, 5, '/Study-Tube/assets/video0.mp4', '/Study-Tube/assets/video_thumbnail0.jpg', 'Introduction to Cloud Computing', 326, '2024-10-04 20:14:00', 0),
 	(16, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test', 2, '2025-01-18 22:11:11', 1),
-	(19, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test file modul', 1, '2025-01-21 01:59:06', 1),
-	(25, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737432964_1130469.png', 'Standard Deviation of Hawk Tuah', 1, '2025-01-21 04:16:04', 0),
-	(34, 1, '/Study-Tube/db/video/video_1737556776_4Rn2qz7 - Imgur.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737556776_ThreeCore.png', 'test notif', 0, '2025-01-22 14:39:36', 0),
-	(35, 1, '/Study-Tube/db/video/video_1737557078_4Rn2qz7 - Imgur.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737557078_FB_IMG_1690461040731.jpg', 'test notif m', 0, '2025-01-22 14:44:38', 0),
-	(38, 1, '/Study-Tube/db/video/video_1737558676_4Rn2qz7 - Imgur.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737558676_FB_IMG_1727964288671.jpg', 'test notif mmm', 0, '2025-01-22 15:11:16', 0),
-	(39, 2, '/Study-Tube/db/video/video_1737575805_349145032_662634269011515_6425198523701700097_n.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737575805_FB_IMG_1690461040731.jpg', 'halo tuah', 1, '2025-01-22 19:56:45', 1);
+	(19, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737238271_image0.jpg', 'test file modul', 2, '2025-01-21 01:59:06', 1),
+	(25, 1, '/Study-Tube/db/video/video_1737432964_Snapsave.app_-YOOcVvgfbV1_QzGG9hxNzcfkrMZ_RPW_.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737432964_1130469.png', 'Standard Deviation of Hawk Tuah', 2, '2025-01-21 04:16:04', 1),
+	(39, 2, '/Study-Tube/db/video/video_1737575805_349145032_662634269011515_6425198523701700097_n.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737575805_FB_IMG_1690461040731.jpg', 'halo tuah', 1, '2025-01-22 19:56:45', 1),
+	(43, 1, '/Study-Tube/db/video/video_1737676445_349145032_662634269011515_6425198523701700097_n.mp4', '/Study-Tube/db/thumbnail/thumbnail_1737676445_349362221_696151078986426_3921021623258311066_n.jpg', 'test notif', 2, '2025-01-23 23:54:05', 1);
 
 -- Dumping structure for trigger study_tube.update_favorite_after_delete
 DROP TRIGGER IF EXISTS `update_favorite_after_delete`;

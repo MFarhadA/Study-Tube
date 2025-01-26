@@ -26,6 +26,8 @@ while ($row = $resultvideoID->fetch_assoc()) {
 }
 $stmt->close();
 
+$resultnotifikasi = null;
+
 if (!empty($videoIDs)) {
     // Buat string untuk klausa IN dalam query SQL
     $placeholders = implode(',', array_fill(0, count($videoIDs), '?'));
@@ -48,8 +50,6 @@ if (!empty($videoIDs)) {
     $resultnotifikasi = $stmt->get_result();
 
     $stmt->close();
-} else {
-    echo "Tidak ada notifikasi yang tersedia.";
 }
 
 $conn->close();

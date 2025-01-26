@@ -28,42 +28,17 @@ if ($_POST['password'] !== $_POST['password_confirmation']) {
 
 // Update tabel user
 $sql_user_update = "UPDATE user 
-                    SET name = ?, email = ?, password = ?
+                    SET name = ?, email = ?, school = ?, password = ?
                     WHERE userID = ?";
 
 $stmt_user = $conn->prepare($sql_user_update);
 
 if ($stmt_user) {
-    $stmt_user->bind_param("sssi", $nama, $email, $password, $user_id);
+    $stmt_user->bind_param("ssssi", $nama, $email, $nama_sekolah, $password, $user_id);
     $stmt_user->execute();
     $stmt_user->close();
 } else {
     die("Query update user gagal: " . $conn->error);
-}
-
-// Update tabel sekolah
-$sql_school_update = "
-    UPDATE user 
-    SET name = ?
-    WHERE userID = (
-        SELECT s.userID 
-        FROM sekolah s 
-        WHERE s.schoolID = (
-            SELECT si.schoolID 
-            FROM siswa si 
-            WHERE si.userID = ?
-        )
-    )
-";
-
-$stmt_school = $conn->prepare($sql_school_update);
-
-if ($stmt_school) {
-    $stmt_school->bind_param("si", $nama_sekolah, $user_id);
-    $stmt_school->execute();
-    $stmt_school->close();
-} else {
-    die("Query update sekolah gagal: " . $conn->error);
 }
 
 header("Location: /Study-Tube/siswa/edit_profil/index.php");

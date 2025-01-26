@@ -52,6 +52,8 @@ include 'listNotifikasi.php';
                                 </h1>
                             </div>
                         <?php endwhile; ?>
+                    <?php else: ?>
+                        <p class="font-roboto mb-2 font-normal">Tidak ada notifikasi.</p>
                     <?php endif; ?>
                 </div>
             </div>
