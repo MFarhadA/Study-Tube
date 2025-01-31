@@ -41,7 +41,7 @@
                 <form method="POST" action="updateFotoProfil.php" enctype="multipart/form-data">
                     <div class="flex space-x-10 p-2 ml-2 items-center">
                         <!-- Gambar Profil -->
-                        <div class="flex-shrink-0 overflow-hidden w-[60px] h-[60px] rounded-full scale-150">
+                        <div class="flex-shrink-0 overflow-hidden w-[60px] h-[60px] rounded-full scale-150 bg-[#40BA6A]">
                             <img id="foto_profil" src="<?php echo $dataProfil['profile_photo']; ?>" class="w-full h-full object-cover">
                         </div>
                         <!-- Teks dan Button -->

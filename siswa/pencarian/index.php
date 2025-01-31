@@ -125,7 +125,7 @@ $noResults = ($resultGuru->num_rows === 0 && $resultVideo->num_rows === 0);
                                         onclick="location='profile.php?id=<?= htmlspecialchars($guru['userID']) ?>'" 
                                         class="flex flex-col col-rounded-shadow p-3 w-[120px] h-[180px] space-y-2 cursor-pointer"
                                     >
-                                        <div class="mx-auto overflow-hidden w-[75px] h-[75px] rounded-full bg-white mb-1">
+                                        <div class="mx-auto overflow-hidden w-[75px] h-[75px] rounded-full bg-[#40BA6A] mb-1">
                                             <img src="<?= htmlspecialchars($guru['guru_photo']) ?>" alt="<?= htmlspecialchars($guru['guru_name']) ?>" class="w-full h-full object-cover">
                                         </div>
                                         <h1 class="font-poppins text-center text-black text-ellipsis line-clamp-3">
@@ -153,10 +153,10 @@ $noResults = ($resultGuru->num_rows === 0 && $resultVideo->num_rows === 0);
                             <?php if ($resultVideo && $resultVideo->num_rows > 0): ?>
                                 <?php while ($video = $resultVideo->fetch_assoc()): ?>
                                     <div
-                                        onclick="playVideo('<?= htmlspecialchars($video['video_path']) ?>')" 
+                                        onclick="location.href='/Study-Tube/siswa/tonton/index.php?video=<?php echo urlencode($video['video_path']); ?>&videoID=<?php echo $video['video_id']; ?>'"
                                         class="w-[265px] h-[255px] col-rounded-shadow cursor-pointer p-2"
                                     >
-                                        <div class="overflow-hidden w-[250px] h-[140px] rounded-lg bg-white">
+                                        <div class="overflow-hidden w-[250px] h-[140px] rounded-lg bg-[#40BA6A]">
                                             <div class="mx-auto item thumbnail">
                                                 <img 
                                                     src="<?= htmlspecialchars($video['video_thumbnail']) ?>" 
@@ -170,7 +170,7 @@ $noResults = ($resultGuru->num_rows === 0 && $resultVideo->num_rows === 0);
                                         </h1>
                                         <div class="row mt-2">
                                             <div class="flex space-x-3">
-                                                <div class="mx-auto overflow-hidden w-[40px] h-[40px] rounded-full bg-white">
+                                                <div class="mx-auto overflow-hidden w-[40px] h-[40px] rounded-full bg-[#40BA6A]">
                                                     <div class="mx-auto">
                                                         <img 
                                                             src="<?= htmlspecialchars($video['guru_photo']) ?>" 

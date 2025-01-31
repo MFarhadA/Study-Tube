@@ -242,7 +242,7 @@ include('downloadModul.php');
                 <!-- Profile Card -->
                 <div class="bg-[#48C774] text-white flex items-center justify-between p-3 rounded-lg mb-6 shadow-md w-auto mx-auto">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0 overflow-hidden w-[60px] h-[60px] rounded-full bg-white items-center z-1 mr-4">
+                        <div class="flex-shrink-0 overflow-hidden w-[60px] h-[60px] rounded-full bg-[#40BA6A] items-center z-1 mr-4">
                             <div class="mx-auto">
                                 <img id="profilePhoto" src="<?= htmlspecialchars($row['teacher_profile_photo']); ?>">
                             </div>

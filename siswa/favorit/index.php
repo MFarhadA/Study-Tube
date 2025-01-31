@@ -65,7 +65,7 @@ include 'listFavorit.php';
                                         </h1>
                                         <div class="row mt-2">
                                             <div class="flex space-x-3">
-                                                <div class="mx-auto overflow-hidden w-[40px] h-[40px] rounded-full bg-white">
+                                                <div class="mx-auto overflow-hidden w-[40px] h-[40px] rounded-full bg-[#40BA6A]">
                                                     <div class="mx-auto">
                                                         <img 
                                                             src="<?= htmlspecialchars($video['guru_photo']) ?>" 

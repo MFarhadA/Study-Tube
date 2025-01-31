@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $sql = "INSERT INTO user (name, email, password, school, profile_photo, role)
-            VALUES ('$name', '$email', '$password', '$school', '/Study-Tube/assets/foto_profil.jpg', '1')";
+            VALUES ('$name', '$email', '$password', '$school', '/Study-Tube/assets/foto_profil.png', '1')";
 
     
 

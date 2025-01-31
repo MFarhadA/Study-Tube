@@ -42,7 +42,7 @@ include 'listNotifikasi.php';
                     <?php if ($resultnotifikasi && $resultnotifikasi->num_rows > 0): ?>
                         <?php while ($notifikasi = $resultnotifikasi->fetch_assoc()): ?>
                             <div class="flex rounded-lg ring-1 ring-gray-200 space-x-5 p-2 items-center">
-                                <div class="flex-shrink-0 overflow-hidden w-[60px] h-[60px] rounded-full bg-white items-center">
+                                <div class="flex-shrink-0 overflow-hidden w-[60px] h-[60px] rounded-full bg-[#40BA6A] items-center">
                                     <div class="mx-auto">
                                         <img src="<?php echo $notifikasi['profile_photo']; ?>" class="w-full h-full object-cover">
                                     </div>

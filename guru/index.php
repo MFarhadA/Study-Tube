@@ -58,7 +58,7 @@
                             <?php if ($resultPengikut && $resultPengikut->num_rows > 0): ?>
                                 <?php while ($pengikut = $resultPengikut->fetch_assoc()): ?>
                                     <div class="flex items-center rounded-lg ring-1 ring-gray-200 p-2" title="<?= htmlspecialchars($pengikut['pengikut_nama_murid']); ?>">
-                                        <div class="flex-shrink-0 overflow-hidden w-[50px] h-[50px] rounded-full bg-white items-center mr-3">
+                                        <div class="flex-shrink-0 overflow-hidden w-[50px] h-[50px] rounded-full bg-[#40BA6A] items-center mr-3">
                                             <div class="mx-auto">
                                                 <img id="profilePhoto" src="<?= htmlspecialchars($pengikut['pengikut_foto_profil_murid']); ?>">
                                             </div>
