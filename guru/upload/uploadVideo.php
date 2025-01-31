@@ -44,12 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload'])) {
     // Upload Video
     if (isset($_FILES['video_file']) && $_FILES['video_file']['error'] === UPLOAD_ERR_OK) {
         $allowedVideoTypes = ['video/mp4', 'video/avi', 'video/mov', 'video/mkv'];
-        if (in_array($_FILES['video_file']['type'], $allowedVideoTypes) && $_FILES['video_file']['size'] <= 209715200) { // Max 200MB
+        if (in_array($_FILES['video_file']['type'], $allowedVideoTypes) && $_FILES['video_file']['size'] <= 1073741824) { // Max 1GB
             $videoName = basename($_FILES['video_file']['name']);
             $videoPath = $videoDir . 'video_' . time() . '_' . $videoName;
             move_uploaded_file($_FILES['video_file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $videoPath);
         } else {
-            die("Video tidak valid. Pastikan formatnya MP4, AVI, MOV, atau MKV dengan ukuran maksimal 200MB.");
+            die("Video tidak valid. Pastikan formatnya MP4, AVI, MOV, atau MKV dengan ukuran maksimal 1GB.");
         }
     }
 

@@ -69,7 +69,7 @@
                             <!-- Teks dan Button -->
                             <div class="flex-grow ml-4">
                                 <span class="font-roboto font-normal text-black">
-                                    Rekomendasi ukuran 1280 x 720 pixels dengan ukuran 200MB atau kurang.
+                                    Rekomendasi ukuran 1280 x 720 pixels dengan maksimal ukuran 1GB atau kurang.
                                 </span>
                                 <div class="flex flex-auto mt-2 space-x-3 w-auto">
                                     <div class="flex flex-col space-y-2">
@@ -102,7 +102,7 @@
                             <!-- Teks dan Button -->
                             <div class="flex-grow ml-4">
                                 <span class="font-roboto font-normal text-black">
-                                    Rekomendasi ukuran 1280 x 720 pixels dengan ukuran 4MB atau kurang.
+                                    Rekomendasi ukuran 1280 x 720 pixels dengan maksimal ukuran 4MB atau kurang.
                                 </span>
                                 <div class="flex flex-auto mt-2 space-x-3 w-auto">
                                     <div class="flex flex-col space-y-2">
@@ -138,7 +138,7 @@
                             <!-- Teks dan Button -->
                             <div class="flex-grow ml-4">
                                 <span class="font-roboto font-normal text-black">
-                                    Rekomendasi ukuran 4MB.
+                                    Maksimal ukuran 4MB.
                                 </span>
                                 <div class="flex flex-auto mt-2 space-x-3 w-auto">
                                     <div class="flex flex-col space-y-2">
