@@ -59,9 +59,7 @@
                                 <?php while ($pengikut = $resultPengikut->fetch_assoc()): ?>
                                     <div class="flex items-center rounded-lg ring-1 ring-gray-200 p-2" title="<?= htmlspecialchars($pengikut['pengikut_nama_murid']); ?>">
                                         <div class="flex-shrink-0 overflow-hidden w-[50px] h-[50px] rounded-full bg-[#40BA6A] items-center mr-3">
-                                            <div class="mx-auto">
-                                                <img id="profilePhoto" src="<?= htmlspecialchars($pengikut['pengikut_foto_profil_murid']); ?>">
-                                            </div>
+                                            <img id="profilePhoto" src="<?= htmlspecialchars($pengikut['pengikut_foto_profil_murid']); ?>" class="w-full h-full object-cover">
                                         </div>
                                         <p class="text-lg font-roboto font-normal line-clamp-1"><?= htmlspecialchars($pengikut['pengikut_nama_murid']); ?></p>
                                     </div>

@@ -14,10 +14,8 @@ fetch('/Study-Tube/siswa/sidebar/sidebar.php')
                 <div class="flex-none sidebar-content mt-[20px]">
                     <div class="flex flex-column space-y-2">
                         <!-- Foto Profil -->
-                        <div class="overflow-hidden w-[60px] h-[60px] rounded-full bg-white items-center z-1">
-                            <div class="mx-auto">
-                                <img id="profilePhoto" src="${profilePhoto}">
-                            </div>
+                        <div class="overflow-hidden w-[60px] h-[60px] rounded-full bg-white z-1 flex items-center justify-center">
+                            <img id="profilePhoto" src="${profilePhoto}" class="w-full h-full object-cover">
                         </div>
                         <h1 id="userName" class="font-poppins text-xl text-white">${userName}</h1>
                         <button type="button" onclick="location='/Study-Tube/siswa/edit_profil/index.php'"

@@ -166,13 +166,6 @@ $isFollowing = $resultCheckFollow->num_rows > 0;  // true jika sudah mengikuti, 
                     <div>
                     <p class="text-lg font-poppins"><?= htmlspecialchars($row['teacher_name']); ?></p>
                     <p class="text-sm font-roboto text-[#228444]"><?= htmlspecialchars($row['followers']); ?> Pengikut</p>
-                        <div class="flex text-white">
-                            <span>&#9733;</span>
-                            <span>&#9733;</span>
-                            <span>&#9733;</span>
-                            <span>&#9733;</span>
-                            <span class="text-gray-300">&#9733;</span>
-                        </div>
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
