@@ -19,11 +19,14 @@ $q = isset($_GET['search']) ? $_GET['search'] : '';
 // Query untuk tabel guru
 $sqlGuru = "
     SELECT 
-        userID, 
-        name AS guru_name, 
-        profile_photo AS guru_photo 
+        u.userID, 
+        u.name AS guru_name, 
+        u.profile_photo AS guru_photo,
+        g.teacherID
     FROM 
-        user 
+        user u
+    JOIN 
+        guru g ON u.userID = g.userID
     WHERE 
         role = 2 
         AND name LIKE '%" . $conn->real_escape_string($q) . "%'
@@ -32,7 +35,8 @@ $resultGuru = $conn->query($sqlGuru);
 
 // Query untuk tabel video
 $sqlVideo = "
-    SELECT 
+    SELECT
+        video.videoID AS video_id,
         video.title AS video_title, 
         video.thumbnail AS video_thumbnail, 
         video.video AS video_path, 
@@ -122,7 +126,7 @@ $noResults = ($resultGuru->num_rows === 0 && $resultVideo->num_rows === 0);
                             <?php if ($resultGuru && $resultGuru->num_rows > 0): ?>
                                 <?php while ($guru = $resultGuru->fetch_assoc()): ?>
                                     <div
-                                        onclick="location='profile.php?id=<?= htmlspecialchars($guru['userID']) ?>'" 
+                                        onclick="location.href='/Study-Tube/siswa/profil/index.php?teacherID=<?= urlencode($guru['teacherID']) ?>'"
                                         class="flex flex-col col-rounded-shadow p-3 w-[120px] h-[180px] space-y-2 cursor-pointer"
                                     >
                                         <div class="mx-auto overflow-hidden w-[75px] h-[75px] rounded-full bg-[#40BA6A] mb-1">
