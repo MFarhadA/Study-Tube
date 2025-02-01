@@ -250,7 +250,7 @@
 
         <div id="errorAlert" class="hidden fixed bg-[#D9534F] text-white p-4 rounded-[15px] bottom-5 left-1/2 transform -translate-x-1/2 shadow-lg z-50">
             <strong>Error:</strong> <span id="errorMessage"></span>
-        </div>
+        </div> 
 
     </div>
     

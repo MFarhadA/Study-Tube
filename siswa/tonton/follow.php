@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['teacherID']) && isset
             $stmtFollow = $conn->prepare($sqlFollow);
             $stmtFollow->bind_param("ii", $studentID, $teacherID);
 
-            $sqlNotification = "INSERT INTO notifikasi_siswa (studentID, message, upload_date)
-                    VALUES (?, ?, ?)";
+            $sqlNotification = "INSERT INTO notifikasi_siswa (studentID, teacherID, message, upload_date)
+                    VALUES (?, ?, ?, ?)";
 
             // Ambil nama siswa dari database
             $sqlGetName = "SELECT u.name 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['teacherID']) && isset
 
             // Eksekusi query notifikasi
             $stmtNotification = $conn->prepare($sqlNotification);
-            $stmtNotification->bind_param("iss", $studentID, $message, $uploadDate);
+            $stmtNotification->bind_param("iiss", $studentID, $teacherID, $message, $uploadDate);
 
             if ($stmtFollow->execute()) {
                 if ($stmtNotification->execute()) {
