@@ -1,5 +1,5 @@
 <?php
-
+/*
 include 'datateacherID.php';
 
 // Koneksi ke database
@@ -36,4 +36,5 @@ $resultRating = $stmt->get_result();
 // Tutup koneksi
 $stmt->close();
 $conn->close();
+*/
 ?>
